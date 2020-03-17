@@ -1,0 +1,7 @@
+config
+scripts
+**/mocks/**/*
+
+serviceWorker.js
+*.d.ts
+jest.config.js
