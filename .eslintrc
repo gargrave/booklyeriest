@@ -99,6 +99,12 @@
       "rules": {
         "sort-keys": "off"
       }
+    },
+    {
+      "files": ["*.examples.tsx"],
+      "rules": {
+        "no-console": "off"
+      }
     }
   ]
 }

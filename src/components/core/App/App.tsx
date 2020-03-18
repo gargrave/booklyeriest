@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { Button } from 'packages/common'
+import { Button } from 'components/common'
 
+import 'styles/normalize.css'
 import './App.css'
 
-function App() {
+export const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">Booklyer</header>
@@ -15,5 +16,3 @@ function App() {
     </div>
   )
 }
-
-export default App

@@ -7,10 +7,7 @@ module.exports = {
     './tsconfig.json',
     [{}],
   ).parse,
-  require: [
-    // path.join(__dirname, 'src/components/Select/styles/Select.scss'),
-    // path.join(__dirname, 'src/components/Select/styleguide/Styleguide.scss'),
-  ],
+  require: [path.join(__dirname, 'src/styles/normalize.css')],
   styleguideDir: 'docs',
   title: `Booklyeriest ${pkg.version}`,
   webpackConfig: require('./config/webpack.config.js'),
