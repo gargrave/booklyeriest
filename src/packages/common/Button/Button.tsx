@@ -4,15 +4,18 @@ import { cx } from 'emotion'
 import styles from './Button.styles'
 
 export type ButtonProps = {
+  className?: string
   disabled?: boolean
   onClick: () => void
 }
 
 export const Button: React.FC<ButtonProps> = React.memo(
-  ({ children, disabled, onClick }) => {
+  ({ children, className, disabled, onClick }) => {
     return (
       <button
-        className={cx(styles.button, { [styles.disabled]: disabled })}
+        className={cx(styles.button, className, {
+          [styles.disabled]: disabled,
+        })}
         disabled={disabled}
         onClick={onClick}
       >

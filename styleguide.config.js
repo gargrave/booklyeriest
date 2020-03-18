@@ -12,6 +12,6 @@ module.exports = {
     // path.join(__dirname, 'src/components/Select/styleguide/Styleguide.scss'),
   ],
   styleguideDir: 'docs',
-  title: `Booklyer ${pkg.version}`,
+  title: `Booklyeriest ${pkg.version}`,
   webpackConfig: require('./config/webpack.config.js'),
 }

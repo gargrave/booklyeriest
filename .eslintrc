@@ -93,6 +93,12 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/consistent-type-assertions": "off"
       }
+    },
+    {
+      "files": ["*.styles.ts"],
+      "rules": {
+        "sort-keys": "off"
+      }
     }
   ]
 }
