@@ -2,7 +2,7 @@ import { css } from 'emotion'
 import { darken, tint } from 'polished'
 
 import { colors } from '../styles'
-import { AlertType, AlertProps, AlertState } from './Alert'
+import { AlertProps, AlertState } from './Alert'
 
 type Props = Required<Pick<AlertProps, 'transitionTime' | 'type'>>
 
@@ -17,45 +17,34 @@ type ThemeOverrides = {
   textOffset?: number
 }
 
-const getOverrides = (type: AlertType): ThemeOverrides => {
-  if (type === AlertType.light) {
-    return {
-      borderOffset: 0.06,
-      textOffset: 0.6,
-    }
-  }
-
-  return {}
-}
+const alertBase = css`
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  padding: 1rem;
+  position: relative;
+`
 
 const makeAlertStyles = (props: Props, state: AlertState) => {
   const { transitionTime, type } = props
   const { dismissed } = state
-  const overrides = getOverrides(type)
 
   const baseColor = colors.theme[type]
-  const bgOffset = overrides.bgOffset || 0.75
-  const borderOffset = overrides.borderOffset || 0.035
-  const textOffset = overrides.textOffset || 0.3
+  const bgOffset = 0.75
+  const borderOffset = 0.035
+  const textOffset = 0.3
 
   const bgColor = tint(bgOffset, baseColor)
   const borderColor = darken(borderOffset, bgColor)
   const textColor = darken(textOffset, baseColor)
 
   return css`
-    /* basic Alert styles */
-    border-radius: 0.25rem;
-    margin-bottom: 1.5rem;
-    margin-top: 0;
-    opacity: ${dismissed ? 0 : 1};
-    padding: 1rem;
-    position: relative;
-    transition: opacity ${transitionTime}ms ease;
-
-    /* theme styles */
+    ${alertBase}
     background-color: ${bgColor};
     border: 1px solid ${borderColor};
     color: ${textColor};
+    opacity: ${dismissed ? 0 : 1};
+    transition: opacity ${transitionTime}ms ease;
   `
 }
 
@@ -72,7 +61,7 @@ const closeButton = css`
   top: 0;
 `
 
-const getStyles = (props: Props, state: AlertState): AlertStyles => {
+export default (props: Props, state: AlertState): AlertStyles => {
   const alert = makeAlertStyles(props, state)
 
   return {
@@ -80,5 +69,3 @@ const getStyles = (props: Props, state: AlertState): AlertStyles => {
     closeButton,
   }
 }
-
-export default getStyles

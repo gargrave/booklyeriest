@@ -1,29 +1,20 @@
 import * as React from 'react'
 
+import { StyleTheme } from '../styles'
+
 import getStyles from './Alert.styles'
 
 const noop = () => void 0
 
-export const getAlertTestId = (type: AlertType) => `alert--${type}`
+export const getAlertTestId = (type: StyleTheme) => `alert--${type}`
 export const TEST_ID_ALERT_CLOSE_BTN = 'alert__closeButton'
 export const DEFAULT_TRANSITION_TIME = 250
-
-export enum AlertType {
-  primary = 'primary',
-  secondary = 'secondary',
-  success = 'success',
-  info = 'info',
-  warning = 'warning',
-  danger = 'danger',
-  light = 'light',
-  dark = 'dark',
-}
 
 export type AlertProps = {
   dismissable?: boolean
   onDismiss?: () => void
   transitionTime?: number
-  type?: AlertType
+  type?: StyleTheme
 }
 
 export type AlertState = {
@@ -37,7 +28,7 @@ export const Alert: React.FC<AlertProps> = React.memo(
     dismissable = false,
     onDismiss = noop,
     transitionTime = DEFAULT_TRANSITION_TIME,
-    type = AlertType.primary,
+    type = StyleTheme.Primary,
   }) => {
     const [state, setState] = React.useState<AlertState>({
       dismissed: false,

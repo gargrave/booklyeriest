@@ -2,10 +2,10 @@ import * as React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { act, cleanup, fireEvent, render, wait } from '@testing-library/react'
 
+import { StyleTheme } from '../styles'
 import {
   Alert,
   AlertProps,
-  AlertType,
   getAlertTestId,
   TEST_ID_ALERT_CLOSE_BTN,
 } from './Alert'
@@ -28,7 +28,7 @@ describe('Alert', () => {
     it('renders correctly', () => {
       const children = 'This is the alert text!'
       const time = 5
-      const testId = getAlertTestId(AlertType.primary)
+      const testId = getAlertTestId(StyleTheme.Primary)
 
       const {
         container,

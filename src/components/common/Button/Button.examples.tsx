@@ -1,25 +1,130 @@
 import * as React from 'react'
-import { cx } from 'emotion'
 
-import { Button } from './Button'
+import { StyleTheme } from '../styles'
+import { Button, ButtonProps } from './Button'
 
-import styles from './Button.styles'
+const handleClick = () => console.log(`Click! ${Date.now()}`)
+
+const ButtonSet = (props: Partial<ButtonProps> = {}) => (
+  <>
+    <Button onClick={handleClick} type={StyleTheme.Primary} {...props}>
+      Primary
+    </Button>
+    <Button onClick={handleClick} type={StyleTheme.Secondary} {...props}>
+      Secondary
+    </Button>
+    <Button onClick={handleClick} type={StyleTheme.Success} {...props}>
+      Success
+    </Button>
+    <Button onClick={handleClick} type={StyleTheme.Info} {...props}>
+      Info
+    </Button>
+    <Button onClick={handleClick} type={StyleTheme.Warning} {...props}>
+      Warning
+    </Button>
+    <Button onClick={handleClick} type={StyleTheme.Danger} {...props}>
+      Danger
+    </Button>
+  </>
+)
+
+const BasicButtons = () => (
+  <>
+    <h3>Basic themed Buttons</h3>
+    <p>
+      Use the <span className="code">type</span> prop to determine styling.
+      (Defaults to <span className="code">Primary</span>)
+    </p>
+    <ButtonSet />
+  </>
+)
+
+const DisabledButtons = () => (
+  <>
+    <h3>Disabled Buttons</h3>
+    <p>
+      Use the <span className="code">disabled</span> to disable a button. This
+      applies both the native HTML attribute as well as custom styling.
+    </p>
+    <ButtonSet disabled={true} />
+  </>
+)
+
+const OutlineButtons = () => (
+  <>
+    <h3>Outline styled Buttons</h3>
+    <p>
+      Use the <span className="code">outline</span> prop for outline styling.
+    </p>
+    <ButtonSet outline={true} />
+  </>
+)
+
+const BlockButtons = () => (
+  <>
+    <h3>Block Buttons</h3>
+    <p>
+      Use the <span className="code">block</span> prop to create a block-style
+      button.
+    </p>
+    <p>Block-style buttons will fill the width of the container.</p>
+    <div>
+      <Button block={true} onClick={handleClick} type={StyleTheme.Primary}>
+        Primary Block
+      </Button>
+    </div>
+
+    <p>
+      If you want to have multiple block-style buttons fill together, simply
+      make the container a flex container.
+    </p>
+    <div style={{ display: 'flex' }}>
+      <Button block={true} onClick={handleClick} type={StyleTheme.Primary}>
+        Primary Block
+      </Button>
+      <Button block={true} onClick={handleClick} type={StyleTheme.Secondary}>
+        Secondary Block
+      </Button>
+      <Button block={true} onClick={handleClick} type={StyleTheme.Success}>
+        Success Block
+      </Button>
+    </div>
+    <div style={{ display: 'flex', marginTop: 8 }}>
+      <Button
+        block={true}
+        disabled={true}
+        onClick={handleClick}
+        type={StyleTheme.Info}
+      >
+        Disabled Info Block
+      </Button>
+      <Button
+        block={true}
+        disabled={true}
+        onClick={handleClick}
+        type={StyleTheme.Warning}
+      >
+        Disabled Warning Block
+      </Button>
+      <Button
+        block={true}
+        disabled={true}
+        onClick={handleClick}
+        type={StyleTheme.Danger}
+      >
+        Disabled Danger Block
+      </Button>
+    </div>
+  </>
+)
 
 const ButtonExamples: React.FC = React.memo(() => {
   return (
     <>
-      <Button
-        className={cx(styles.button, styles.type1)}
-        onClick={() => console.log(`Clicked! ${Date.now()}`)}
-      >
-        Click-a-me
-      </Button>
-      <Button
-        className={cx(styles.button, styles.type2)}
-        onClick={() => console.log(`Clicked! ${Date.now()}`)}
-      >
-        Click-a-me
-      </Button>
+      <BasicButtons />
+      <DisabledButtons />
+      <OutlineButtons />
+      <BlockButtons />
     </>
   )
 })

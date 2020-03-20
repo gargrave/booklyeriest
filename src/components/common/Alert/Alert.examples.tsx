@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import { Alert, AlertType } from './Alert'
+import { StyleTheme } from '../styles'
+import { Alert } from './Alert'
 
 const unDismissStyles: React.CSSProperties = {
+  color: '#666',
   cursor: 'pointer',
   fontSize: '1.1rem',
-  fontWeight: 500,
 }
 
 const AlertExamples: React.FC = () => {
@@ -21,16 +22,14 @@ const AlertExamples: React.FC = () => {
 
   return (
     <>
+      <h3>Basic themed Alerts</h3>
       <Alert>This is the default alert (Primary).</Alert>
-      <Alert type={AlertType.success}>This is a Success alert.</Alert>
-      <Alert type={AlertType.secondary}>This is a Secondary alert.</Alert>
-      <Alert type={AlertType.info}>This is an Info alert.</Alert>
-      <Alert type={AlertType.warning}>This is a Warning alert.</Alert>
-      <Alert type={AlertType.danger}>This is a Danger alert.</Alert>
-      <Alert type={AlertType.light}>This is a Light alert.</Alert>
-      <Alert type={AlertType.dark}>This is a Dark alert.</Alert>
+      <Alert type={StyleTheme.Success}>This is a Success alert.</Alert>
+      <Alert type={StyleTheme.Secondary}>This is a Secondary alert.</Alert>
+      <Alert type={StyleTheme.Info}>This is an Info alert.</Alert>
+      <Alert type={StyleTheme.Warning}>This is a Warning alert.</Alert>
+      <Alert type={StyleTheme.Danger}>This is a Danger alert.</Alert>
 
-      <hr />
       <h3>Dismissable</h3>
       {dismissed ? (
         <div onClick={handleUnDismiss} style={unDismissStyles}>

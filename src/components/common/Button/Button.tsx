@@ -1,24 +1,38 @@
 import * as React from 'react'
-import { cx } from 'emotion'
 
-import styles from './Button.styles'
+import { StyleTheme } from '../styles'
 
+import getStyles from './Button.styles'
+
+// TODO: button sizes
+// TODO: link buttons
+// TODO: a11y stuffs
+// TODO: loader buttons (requires Loader)
 export type ButtonProps = {
-  className?: string
+  block?: boolean
   disabled?: boolean
   onClick: () => void
+  outline?: boolean
+  type?: StyleTheme
 }
 
 export const Button: React.FC<ButtonProps> = React.memo(
-  ({ children, className, disabled, onClick }) => {
+  ({
+    block = false,
+    children,
+    disabled = false,
+    onClick,
+    outline = false,
+    type = StyleTheme.Primary,
+  }) => {
+    const styles = React.useMemo(() => getStyles({ block, outline, type }), [
+      block,
+      outline,
+      type,
+    ])
+
     return (
-      <button
-        className={cx(styles.button, className, {
-          [styles.disabled]: disabled,
-        })}
-        disabled={disabled}
-        onClick={onClick}
-      >
+      <button className={styles.button} disabled={disabled} onClick={onClick}>
         {children}
       </button>
     )

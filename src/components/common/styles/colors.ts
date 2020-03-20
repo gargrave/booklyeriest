@@ -1,4 +1,13 @@
 /* eslint-disable sort-keys */
+export enum StyleTheme {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Success = 'success',
+  Info = 'info',
+  Warning = 'warning',
+  Danger = 'danger',
+}
+
 const aqua = '#7fdbff'
 const black = '#111'
 const blue = '#0074d9'
@@ -38,14 +47,12 @@ const base = Object.freeze({
 })
 
 const theme = Object.freeze({
-  primary: blue,
-  secondary: gray,
-  success: green,
-  info: teal,
-  warning: orange,
-  danger: red,
-  light: white,
-  dark: black,
+  [StyleTheme.Primary]: blue,
+  [StyleTheme.Secondary]: gray,
+  [StyleTheme.Success]: green,
+  [StyleTheme.Info]: teal,
+  [StyleTheme.Warning]: orange,
+  [StyleTheme.Danger]: red,
 })
 
 export const colors = Object.freeze({
