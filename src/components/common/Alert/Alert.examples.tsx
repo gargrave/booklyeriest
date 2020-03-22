@@ -9,6 +9,9 @@ const unDismissStyles: React.CSSProperties = {
   fontSize: '1.1rem',
 }
 
+/**
+ * @visibleName Alert
+ */
 const AlertExamples: React.FC = () => {
   const [dismissed, setDismissed] = React.useState(false)
 

@@ -8,6 +8,10 @@ h3 {
   margin-top: 32px;
 }
 
+p {
+  line-height: 1.4rem;
+}
+
 .code {
   background: #ededed;
   font-family: Menlo, Consolas, monospace;

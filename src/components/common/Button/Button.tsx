@@ -4,10 +4,11 @@ import { StyleTheme } from '../styles'
 
 import getStyles from './Button.styles'
 
+// TODO: loader buttons (requires Loader)
 // TODO: button sizes
 // TODO: link buttons
 // TODO: a11y stuffs
-// TODO: loader buttons (requires Loader)
+// TODO: just take text instead of children
 export type ButtonProps = {
   block?: boolean
   disabled?: boolean
