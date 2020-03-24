@@ -5,6 +5,7 @@ import { colors } from '../styles'
 import { ButtonProps } from './Button'
 
 export const DISABLED_OPACITY = 0.65
+export const LOADER_TRANSITION_TIME = 175
 
 type Props = Required<
   Pick<ButtonProps, 'block' | 'disabled' | 'loading' | 'outline' | 'type'>
@@ -70,9 +71,7 @@ const buttonState = (props: Props) => {
  * applying variants of the base styling to various pseudo-classes.
  */
 const themedButton = (props: Props) => {
-  const { type } = props
-
-  const color = colors.theme[type]
+  const color = colors.theme[props.type]
   const colorInterval = 0.08
   const shadow = transparentize(0.5, tint(colorInterval, color))
 
@@ -125,8 +124,7 @@ const themedButton = (props: Props) => {
  * All other states are inherited from the base theme.
  */
 const outlineButton = (props: Props) => {
-  const { type } = props
-  const color = colors.theme[type]
+  const color = colors.theme[props.type]
 
   return css`
     &,
@@ -154,14 +152,16 @@ const blockButton = () => css`
  */
 const buttonChildren = (props: Props) => css`
   opacity: ${props.loading ? 0 : 1};
-  transition: opacity 250ms ease;
+  transition: opacity ${LOADER_TRANSITION_TIME}ms ease-out;
 `
 
 /**
  * Styling overrides for internal Loaders to show "loading" state
  */
-const buttonLoader = () => css`
+const buttonLoader = (props: Props) => css`
+  opacity: ${props.loading ? 1 : 0};
   position: absolute;
+  transition: opacity ${LOADER_TRANSITION_TIME}ms ease-out;
 `
 
 export default (props: Props) => {
@@ -175,6 +175,6 @@ export default (props: Props) => {
   return {
     button: [baseButtonStyles, cx(state, theme, outline, block)].join(' '),
     buttonChildren: buttonChildren(props),
-    buttonLoader: buttonLoader(),
+    buttonLoader: buttonLoader(props),
   }
 }

@@ -37,15 +37,13 @@ export const Button: React.FC<ButtonProps> = React.memo(
         onClick={onClick}
       >
         <span className={styles.buttonChildren}>{children}</span>
-        {loading && (
-          <Loader
-            baseColor="white"
-            className={styles.buttonLoader}
-            innerSize={3}
-            shape={LoaderShape.SingleRing}
-            size={20}
-          />
-        )}
+        <Loader
+          baseColor="white"
+          className={styles.buttonLoader}
+          innerSize={3}
+          shape={LoaderShape.SingleRing}
+          size={20}
+        />
       </button>
     )
   },

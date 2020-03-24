@@ -86,15 +86,18 @@ const LoaderShapes = () => (
         <span className="code">DualRing</span>
       </li>
       <li>
+        <span className="code">SingleRing</span>
+      </li>
+      <li>
         <span className="code">Ellipsis</span>
       </li>
     </ul>
 
-    <Loader shape={LoaderShape.DualRing} />
+    <Loader shape={LoaderShape.DualRing} type={StyleTheme.Primary} />
     <Spacer />
-    <Loader shape={LoaderShape.SingleRing} />
+    <Loader shape={LoaderShape.SingleRing} type={StyleTheme.Secondary} />
     <Spacer />
-    <Loader shape={LoaderShape.Ellipsis} />
+    <Loader shape={LoaderShape.Ellipsis} type={StyleTheme.Success} />
   </div>
 )
 

@@ -23,7 +23,7 @@ describe('Button', () => {
     it('renders correctly with default props', () => {
       const { onClick } = defaultProps
       const children = 'Button Text'
-      const { container, getByText, queryByTestId } = render(
+      const { container, getByTestId, getByText } = render(
         <Button {...defaultProps}>{children}</Button>,
       )
       const btn = container.querySelector('button') as HTMLElement
@@ -39,8 +39,9 @@ describe('Button', () => {
       expect(btn).not.toHaveStyle('width: 100%')
       // no outline styling
       expect(btn).not.toHaveStyle('background-color: transparent')
-      // no loader
-      expect(queryByTestId(loaderTestIds.loaderWrapper)).toBeNull()
+      // shows children and hides loader
+      expect(getByText(children)).toHaveStyle('opacity: 1')
+      expect(getByTestId(loaderTestIds.loaderWrapper)).toHaveStyle('opacity: 0')
 
       // fires callback when clicked
       expect(onClick).toHaveBeenCalledTimes(0)
@@ -84,7 +85,7 @@ describe('Button', () => {
   describe('Loading state', () => {
     it('renders a loader and hides children when "loading" is true', () => {
       const children = 'Button Text'
-      const { container, getByTestId, queryByText } = render(
+      const { container, getByTestId, getByText } = render(
         <Button {...defaultProps} loading={true}>
           {children}
         </Button>,
@@ -95,9 +96,9 @@ describe('Button', () => {
       expect(btn).toBeDisabled()
       expect(btn).toHaveStyle('cursor: default')
 
-      // renders a loader and hides children (but doesn't remove them in order to retain sizing)
-      expect(getByTestId(loaderTestIds.loaderWrapper)).toBeInTheDocument()
-      expect(queryByText(children)).toHaveStyle('opacity: 0')
+      // shows loader and hides children
+      expect(getByTestId(loaderTestIds.loaderWrapper)).toHaveStyle('opacity: 1')
+      expect(getByText(children)).toHaveStyle('opacity: 0')
     })
   })
 })
