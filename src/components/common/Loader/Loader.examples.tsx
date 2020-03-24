@@ -92,6 +92,8 @@ const LoaderShapes = () => (
 
     <Loader shape={LoaderShape.DualRing} />
     <Spacer />
+    <Loader shape={LoaderShape.SingleRing} />
+    <Spacer />
     <Loader shape={LoaderShape.Ellipsis} />
   </div>
 )

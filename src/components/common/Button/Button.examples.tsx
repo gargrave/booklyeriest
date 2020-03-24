@@ -118,6 +118,36 @@ const BlockButtons = () => (
   </>
 )
 
+const LoaderButtons = () => {
+  const [loading, setLoading] = React.useState(true)
+
+  const toggleLoading = () => setLoading(!loading)
+
+  return (
+    <>
+      <h3>Loader buttons</h3>
+      <p>
+        Use the <span className="code">loading</span> to show a loader in the
+        button in place of its children.
+      </p>
+      <p>
+        Loader buttons have native <span className="code">disabled</span> state
+        applied to them, so they cannot be interacted with until the{' '}
+        <span className="code">loading</span> state is removed.
+      </p>
+
+      <div style={{ marginBottom: 16 }}>
+        <Button onClick={toggleLoading}>Toggle Loading</Button>
+      </div>
+
+      <ButtonSet loading={loading} />
+    </>
+  )
+}
+
+/**
+ * @visibleName Button
+ */
 const ButtonExamples: React.FC = React.memo(() => {
   return (
     <>
@@ -125,6 +155,7 @@ const ButtonExamples: React.FC = React.memo(() => {
       <DisabledButtons />
       <OutlineButtons />
       <BlockButtons />
+      <LoaderButtons />
     </>
   )
 })

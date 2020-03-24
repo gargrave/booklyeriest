@@ -28,9 +28,9 @@ const wrapper = (props: LoaderStylesProps) => css`
 `
 
 const ellipsis = (props: LoaderStylesProps) => {
-  const { size, type } = props
+  const { size } = props
 
-  const color = colors.theme[type]
+  const color = props.baseColor ?? colors.theme[props.type]
   const speed = props.speed ?? 600
 
   // get the nearest multiple of 3 so we can move the dots evenly

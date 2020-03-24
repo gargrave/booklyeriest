@@ -5,7 +5,7 @@ export type RequiredLoaderStylesProps = Required<
 >
 
 export type OptionalLoaderStylesProps = Partial<
-  Pick<LoaderProps, 'innerSize' | 'speed'>
+  Pick<LoaderProps, 'baseColor' | 'innerSize' | 'speed'>
 >
 
 export type LoaderStylesProps = RequiredLoaderStylesProps &

@@ -27,7 +27,7 @@ const dualRing = (props: LoaderStylesProps) => {
   const c1 = color
   const c2 = transparentize(0.6, c1)
   const size = props.innerSize ?? defaultInnerSize(props)
-  const speed = props.speed ?? 1000
+  const speed = props.speed ?? 600
 
   return css`
     height: 100%;
@@ -36,7 +36,7 @@ const dualRing = (props: LoaderStylesProps) => {
     &:after {
       animation: ${anim} ${speed}ms linear infinite;
       border: ${size}px solid #fff;
-      border-color: ${c1} ${c2};
+      border-color: ${c1} ${c2} ${c2} ${c1};
       border-radius: 50%;
       content: ' ';
       display: block;

@@ -4,7 +4,11 @@ import { shade, tint, transparentize } from 'polished'
 import { colors } from '../styles'
 import { ButtonProps } from './Button'
 
-type Props = Required<Pick<ButtonProps, 'block' | 'outline' | 'type'>>
+export const DISABLED_OPACITY = 0.65
+
+type Props = Required<
+  Pick<ButtonProps, 'block' | 'disabled' | 'loading' | 'outline' | 'type'>
+>
 
 /**
  * Basic/default styling for all buttons.
@@ -18,15 +22,16 @@ const button = () => {
   const height = `2.25rem`
 
   return css`
+    align-items: center;
     border-radius: 4px;
     border-style: solid;
     border-width: 1px;
-    cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
     font-family: inherit;
     font-size: 1rem;
     font-weight: inherit;
     height: ${height};
+    justify-content: center;
     line-height: ${height};
     padding: 0 0.75em;
     text-align: center;
@@ -40,14 +45,22 @@ const button = () => {
       outline: none;
     }
 
-    &:disabled {
-      cursor: default;
-      opacity: 0.65;
-    }
-
     & + & {
       margin-left: 8px;
     }
+  `
+}
+
+/**
+ * Base button that rely on current props, but no theming.
+ */
+const buttonState = (props: Props) => {
+  const cursor = props.disabled || props.loading ? 'default' : 'pointer'
+  const opacity = props.disabled ? DISABLED_OPACITY : 1
+
+  return css`
+    cursor: ${cursor};
+    opacity: ${opacity};
   `
 }
 
@@ -60,7 +73,7 @@ const themedButton = (props: Props) => {
   const { type } = props
 
   const color = colors.theme[type]
-  const colorInterval = 0.1
+  const colorInterval = 0.08
   const shadow = transparentize(0.5, tint(colorInterval, color))
 
   /** Helper to generate a darker or lighter color variant based on the offset */
@@ -136,14 +149,32 @@ const blockButton = () => css`
   width: 100%;
 `
 
+/**
+ * Styling for the render children of the button
+ */
+const buttonChildren = (props: Props) => css`
+  opacity: ${props.loading ? 0 : 1};
+  transition: opacity 250ms ease;
+`
+
+/**
+ * Styling overrides for internal Loaders to show "loading" state
+ */
+const buttonLoader = () => css`
+  position: absolute;
+`
+
 export default (props: Props) => {
   const baseButtonStyles = button()
 
+  const state = buttonState(props)
   const theme = themedButton(props)
   const outline = props.outline && outlineButton(props)
   const block = props.block && blockButton()
 
   return {
-    button: [baseButtonStyles, cx(theme, outline, block)].join(' '),
+    button: [baseButtonStyles, cx(state, theme, outline, block)].join(' '),
+    buttonChildren: buttonChildren(props),
+    buttonLoader: buttonLoader(),
   }
 }

@@ -1289,10 +1289,10 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.37.tgz#98a2a45b6854680fd9321daa24317a3a14fb20c3"
   integrity sha512-jreLH4/jlrULywKPQKMCjNGKY/ynZPZxiM8T6vD+JxpjOBqtXWcuBEzOktcQ5lWs3BlRi77NHOTLs23hkFXZiQ==
 
-"@gargrave/garlib@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.2.tgz#8d69d966d4229c1f8a49573ae720d4133f0efc44"
-  integrity sha512-BZVzEAcJlbOoSgSGpoISVhqzkZsggSWHE4VgLjpw5HeyW97E2Fl7YHbi4FN+dKzAd2zAA8Y0WwsyTFD/pH/UUw==
+"@gargrave/garlib@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.4.tgz#c01663b11dbb52578cd26bc74bad0cb585067be2"
+  integrity sha512-N4IWncZmUUlIZ1piki3+bE+kLbKYuEUNdkbx7ZUK/5Mh7yNNCCZwPNBavL0YjSQhG8URILCdDK5XBRHBdARZlg==
 
 "@grpc/proto-loader@^0.5.0":
   version "0.5.3"
