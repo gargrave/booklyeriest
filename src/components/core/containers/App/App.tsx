@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Button } from 'components/common'
 
-import 'styles/normalize.css'
 import './App.css'
 
 export const App: React.FC = () => {
