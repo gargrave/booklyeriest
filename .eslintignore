@@ -1,6 +1,5 @@
 config
 scripts
-**/mocks/**/*
 
 serviceWorker.js
 *.d.ts
