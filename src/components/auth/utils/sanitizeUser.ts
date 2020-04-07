@@ -1,4 +1,5 @@
-import { pick } from 'utils'
+import * as R from 'ramda'
+
 import {
   RawUser,
   User,
@@ -8,8 +9,8 @@ import {
   UserPropertyNames,
 } from '../auth.types'
 
-const pickUserData = pick(UserPropertyNames)
-const pickUserMetaData = pick(UserMetadataPropertyNames)
+const pickUserData = R.pick(UserPropertyNames)
+const pickUserMetaData = R.pick(UserMetadataPropertyNames)
 
 export const sanitizeUser = (rawUser: RawUser): User | undefined => {
   if (!rawUser) return undefined

@@ -1,7 +1,9 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import { Link, Router } from '@reach/router'
 import { css } from 'emotion'
 
+import { store } from 'store'
 import { AuthorsList } from 'components/authors/containers'
 import { BooksList } from 'components/books/containers'
 
@@ -20,10 +22,12 @@ export const App: React.FC = () => {
         <Link to="authors">Authors</Link> | <Link to="books">Books</Link>
       </nav>
 
-      <Router>
-        <AuthorsList path="authors" />
-        <BooksList path="books" />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <AuthorsList path="authors" />
+          <BooksList path="books" />
+        </Router>
+      </Provider>
     </div>
   )
 }
