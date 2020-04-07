@@ -1285,17 +1285,15 @@
   resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.5.tgz#f3b094feb5bca609375703cb533f9c98e219a712"
   integrity sha512-MHRGAHTp/Ynow4J8ZjgaYJ0eIAKPz3piOqEDSxuXSCVtvrwa/nenwcq2ZBYSANiem5RBsWiIjLkKTLtVuEWmJg==
 
-"@gargrave/velcrostrip@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.0.6.tgz#0748f7b5fa69ea3614587910f9831ab0f50704ff"
-  integrity sha512-8jLc5vNPRglk1/DWcACU3sBZjTXamBQZNFPM2o6wixZ0FMrbIF/ELH4BRETmR4MYDD/sOgpR7F9GCMJuSNJJOA==
+"@gargrave/velcrostrip@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.1.0.tgz#af800f7b4edf65c7ac1d7e7d757d22c7d9915cb9"
+  integrity sha512-95hWdMo0VxeEM24r6kHztAhXf4dtnS8n6WKdpQdtm64CGXm+/SEGTGA0U9Tyey5LJPvLaud/rsPU94YBE232kg==
   dependencies:
     "@gargrave/garlib" "^0.0.5"
     emotion "^10.0.27"
     polished "^3.5.1"
     ramda "^0.27.0"
-    react "^16.13.1"
-    react-dom "^16.13.1"
 
 "@grpc/proto-loader@^0.5.0":
   version "0.5.3"
@@ -10103,7 +10101,7 @@ react-docgen@^5.0.0:
     node-dir "^0.1.10"
     strip-indent "^3.0.0"
 
-react-dom@^16.13.0, react-dom@^16.13.1:
+react-dom@^16.13.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
   integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
@@ -10230,7 +10228,7 @@ react-styleguidist@^11.0.2:
     webpack-dev-server "^3.9.0"
     webpack-merge "^4.2.2"
 
-react@^16.13.0, react@^16.13.1:
+react@^16.13.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
