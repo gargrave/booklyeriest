@@ -95,7 +95,7 @@
       }
     },
     {
-      "files": ["*.styles.ts"],
+      "files": ["*.actions.ts", "*.reducer.ts", "*.styles.ts"],
       "rules": {
         "sort-keys": "off"
       }

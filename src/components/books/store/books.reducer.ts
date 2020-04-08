@@ -1,18 +1,6 @@
-/* eslint-disable sort-keys */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-import { api } from 'store'
-
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
-  return await api.jsonApiRequest({
-    url: `books`,
-    fields: {
-      author: ['firstName', 'lastName'],
-      book: ['title', 'book'],
-    },
-    include: ['author'],
-  })
-})
+import { fetchBooks } from './books.actions'
 
 const booksSlice = createSlice({
   initialState: {

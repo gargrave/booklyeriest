@@ -4,11 +4,19 @@ const BASE_URL = 'http://localhost:8080/api/v1'
 
 type ValidJsonValue = string | number | boolean
 
-type JsonApiObject = {
+type JsonApiResourceIdentifier = {
   id: string
   type: string
+}
+
+type JsonApiObject = JsonApiResourceIdentifier & {
   attributes: {
     [key: string]: ValidJsonValue
+  }
+  relationships?: {
+    [key: string]: {
+      data: JsonApiResourceIdentifier
+    }
   }
 }
 
@@ -51,15 +59,29 @@ const parseJsonApiQuery = (request: JsonApiRequest): string => {
   return queries.length ? `?${joinQ(queries)}` : ''
 }
 
+const flattenRelations = (value: JsonApiObject) => {
+  const { relationships } = value
+  return (
+    relationships &&
+    Object.values(relationships).reduce((acc, rel) => {
+      acc[rel.data.type] = rel.data.id
+      return acc
+    }, {})
+  )
+}
+
 const flattenJsonApiObj = (acc, value: JsonApiObject) => {
   const bucket = acc[value.type] || {}
-  // TODO: flatten "relationships" -> something like { relations: { author: [authorId] } }
+  const relations = flattenRelations(value)
+
   bucket[value.id] = {
     id: value.id,
     type: value.type,
     ...value.attributes,
+    relations,
   }
   acc[value.type] = bucket
+
   return acc
 }
 
