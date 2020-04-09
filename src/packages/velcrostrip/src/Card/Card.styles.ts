@@ -7,7 +7,7 @@ import { CardProps } from './Card'
 type Props = Required<Pick<CardProps, 'hoverable'>>
 
 const bgColor = shade(0.01, colors.base.white)
-const bgColorHover = tint(0.92, colors.theme.primary)
+const bgColorHover = tint(0.9, colors.theme.primary)
 const borderColor = shade(0.1, bgColor)
 
 const card = () => {
@@ -15,7 +15,7 @@ const card = () => {
     ${boxShadowLight};
 
     background-color: ${bgColor};
-    border-radius: 4px;
+    border-radius: 2px;
     border: solid 1px ${borderColor};
     margin: 8px auto;
     max-width: 800px;

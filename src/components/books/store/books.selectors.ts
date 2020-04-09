@@ -1,38 +1,25 @@
 import { createSelector } from '@reduxjs/toolkit'
 import * as R from 'ramda'
 
-import { hydrateAuthor } from '../../authors/store'
+import { ReduxAuthor } from 'components/authors/store'
+import { KeyObjectMap, AppState } from 'store'
+import { Book, ReduxBook } from './books.types'
+import { hydrateBook } from './books.utils'
 
-type KeyObjectMap<T> = { [id: string]: T }
-type Book = {
-  relations: {
-    author: string
-  }
-}
-type Author = {}
+const getBooksData = (state: AppState): KeyObjectMap<ReduxBook> =>
+  state.books.data
 
-const getBooksData = (state): KeyObjectMap<Book> => state.books.data
-const getAuthorsData = (state): KeyObjectMap<Author> => state.authors.data
-
-const hydrateBook = (authors) => (book: Book) => {
-  const baseAttrs = ['id', 'type']
-  const bookAttrs = ['title']
-
-  const author = hydrateAuthor(authors[book.relations.author])
-
-  return {
-    ...R.pick(baseAttrs, book),
-    ...R.pick(bookAttrs, book),
-    author,
-  }
-}
+const getAuthorsData = (state: AppState): KeyObjectMap<ReduxAuthor> =>
+  state.authors.data
 
 export const getBooks = createSelector(
   getBooksData,
   getAuthorsData,
-  (books, authors) => {
+  (books, authors): Book[] => {
     const hydrator = hydrateBook(authors)
 
-    return Object.values(books).map(hydrator)
+    return R.map(hydrator, R.values(books))
   },
 )
+
+export const getBooksRequestPending = (state) => state.books.requestPending

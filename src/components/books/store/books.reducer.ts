@@ -3,11 +3,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import { fetchBooks } from './books.actions'
 
 const booksSlice = createSlice({
-  initialState: {
-    data: [] as number[],
-  },
   name: 'books',
+
+  initialState: {
+    data: {},
+    requestPending: false,
+  },
+
   reducers: {},
+
   extraReducers: {
     [fetchBooks.fulfilled.toString()]: (state, action) => {
       state.data = action.payload.book

@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import * as R from 'ramda'
 
-export const hydrateAuthor = (author) => {
-  const baseAttrs = ['id', 'type']
-  const bookAttrs = ['firstName', 'lastName']
+import { genericAttrNames } from 'store'
+import { authorAttrNames, Author } from './authors.types'
 
+export const hydrateAuthor = (author): Author => {
   return {
-    ...R.pick(baseAttrs, author),
-    ...R.pick(bookAttrs, author),
-  }
+    ...R.pick(genericAttrNames, author),
+    ...R.pick(authorAttrNames, author),
+  } as Author
 }

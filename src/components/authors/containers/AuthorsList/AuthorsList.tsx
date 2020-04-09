@@ -2,36 +2,41 @@ import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
 
-import { Alert } from '@gargrave/velcrostrip/lib/Alert'
-import { Button } from '@gargrave/velcrostrip/lib/Button'
-
-import { fetchAuthors, getAuthors } from 'components/authors/store'
-import { fetchBooks, getBooks } from 'components/books/store'
+import { AuthorCard } from 'components/authors/components'
+import {
+  fetchAuthors,
+  getAuthors,
+  getAuthorsRequestPending,
+} from 'components/authors/store'
+import { Loader } from 'packages/velcrostrip'
+import { useInitialRender } from 'utils'
 
 export type AuthorsListProps = {} & RouteComponentProps
 
 export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
+  const { isInitialRender } = useInitialRender()
+
   const dispatch = useDispatch()
   const authors = useSelector(getAuthors)
-  const books = useSelector(getBooks)
+  const loading = useSelector(getAuthorsRequestPending) || isInitialRender
 
-  console.log({ books, authors })
-
-  const fetchAllTheThings = () => {
-    dispatch(fetchAuthors())
-    dispatch(fetchBooks())
-  }
-
-  React.useEffect(() => {
+  const refetchAuthors = React.useCallback(() => {
     dispatch(fetchAuthors())
   }, [dispatch])
+
+  React.useEffect(() => {
+    refetchAuthors()
+  }, [refetchAuthors])
 
   return (
     <>
       <div>Hello, AuthorsList!</div>
-      <Alert>Test</Alert>
 
-      <Button onClick={fetchAllTheThings}>Test</Button>
+      {loading ? (
+        <Loader size={56} />
+      ) : (
+        authors.map((author) => <AuthorCard author={author} key={author.id} />)
+      )}
     </>
   )
 })
