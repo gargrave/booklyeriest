@@ -1,33 +1,32 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { Link, Router } from '@reach/router'
-import { css } from 'emotion'
 
 import { store } from 'store'
 import { AuthorsList } from 'components/authors/containers'
 import { BooksList } from 'components/books/containers'
 
-const tempStyles = css`
-  text-align: center;
-
-  nav {
-    margin: 1rem;
-  }
-`
+import getStyles from './App.styles'
 
 export const App: React.FC = () => {
+  const styles = React.useMemo(() => getStyles(), [])
+
   return (
-    <div className={tempStyles}>
-      <nav>
-        <Link to="authors">Authors</Link> | <Link to="books">Books</Link>
+    <div>
+      <nav className={styles.nav}>
+        <div className={styles.navContent}>
+          <Link to="authors">Authors</Link> | <Link to="books">Books</Link>
+        </div>
       </nav>
 
-      <Provider store={store}>
-        <Router>
-          <AuthorsList path="authors" />
-          <BooksList path="books" />
-        </Router>
-      </Provider>
+      <main className={styles.pageWrapper}>
+        <Provider store={store}>
+          <Router>
+            <AuthorsList path="authors" />
+            <BooksList path="books" />
+          </Router>
+        </Provider>
+      </main>
     </div>
   )
 }

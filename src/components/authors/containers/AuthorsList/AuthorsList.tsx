@@ -8,8 +8,10 @@ import {
   getAuthors,
   getAuthorsRequestPending,
 } from 'components/authors/store'
-import { Loader } from 'packages/velcrostrip'
+import { Loader, Button } from 'packages/velcrostrip'
 import { useInitialRender } from 'utils'
+
+import getStyles from './AuthorsList.styles'
 
 export type AuthorsListProps = {} & RouteComponentProps
 
@@ -19,6 +21,8 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
   const dispatch = useDispatch()
   const authors = useSelector(getAuthors)
   const loading = useSelector(getAuthorsRequestPending) || isInitialRender
+
+  const styles = React.useMemo(() => getStyles(), [])
 
   const refetchAuthors = React.useCallback(() => {
     dispatch(fetchAuthors())
@@ -30,7 +34,12 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
 
   return (
     <>
-      <div>Hello, AuthorsList!</div>
+      <div className={styles.header}>
+        <h2 className={styles.headerTitle}>My Authors</h2>
+        <Button onClick={() => console.log(`add an author`)}>
+          Add an Author
+        </Button>
+      </div>
 
       {loading ? (
         <Loader size={56} />
