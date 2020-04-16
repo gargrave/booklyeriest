@@ -18,6 +18,7 @@ export const loaderTestIds = {
 const childrenToTypeMap = {
   [LoaderShape.DualRing]: 0,
   [LoaderShape.Ellipsis]: 4,
+  [LoaderShape.SingleRing]: 0,
 }
 
 // TODO: take a data-testid override prop, and prefer it over the default
@@ -30,6 +31,7 @@ export type LoaderProps = {
   baseColor?: string
   className?: string
   innerSize?: number
+  overlay?: boolean
   shape?: LoaderShape
   size?: number
   /**
@@ -45,6 +47,7 @@ export const Loader: React.FC<LoaderProps> = React.memo(
     baseColor,
     className,
     innerSize,
+    overlay,
     shape = LoaderShape.DualRing,
     size = 40,
     speed,
@@ -64,15 +67,19 @@ export const Loader: React.FC<LoaderProps> = React.memo(
       shape,
     ])
 
+    // TODO: use 'overlay' prop to conditionally render as 'absolute'
     return (
-      <div
-        className={classNames(styles.loaderWrapper, className)}
-        data-testid={loaderTestIds.loaderWrapper}
-      >
-        <div className={styles.loader}>
-          {childMapper.map((_, idx) => (
-            <div key={idx} />
-          ))}
+      <div className={styles.container}>
+        <div className={styles.backdrop} />
+        <div
+          className={classNames(styles.wrapper, className)}
+          data-testid={loaderTestIds.loaderWrapper}
+        >
+          <div className={styles.loader}>
+            {childMapper.map((_, idx) => (
+              <div key={idx} />
+            ))}
+          </div>
         </div>
       </div>
     )

@@ -13,5 +13,4 @@ export type LoaderStylesProps = RequiredLoaderStylesProps &
 
 export type LoaderBuilder = {
   loader: (props: LoaderStylesProps) => string
-  wrapper: (props: LoaderStylesProps) => string
 }

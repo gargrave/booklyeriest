@@ -21,12 +21,6 @@ const anim3 = keyframes`
   }
 `
 
-const wrapper = (props: LoaderStylesProps) => css`
-  display: inline-block;
-  height: ${props.size}px;
-  width: ${props.size}px;
-`
-
 const ellipsis = (props: LoaderStylesProps) => {
   const { size } = props
 
@@ -92,7 +86,6 @@ const ellipsis = (props: LoaderStylesProps) => {
 
 const builder: LoaderBuilder = {
   loader: ellipsis,
-  wrapper,
 }
 
 export default builder

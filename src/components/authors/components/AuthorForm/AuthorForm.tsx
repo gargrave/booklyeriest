@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Button, InputField } from 'packages/velcrostrip'
+import { Button, InputField, Loader, LoaderShape } from 'packages/velcrostrip'
 
 export type AuthorFormProps = {
   loading?: boolean // TODO: show a loader when loading
@@ -37,7 +37,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo(
     )
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ position: 'relative' }}>
         <InputField
           id="firstName"
           label="First name"
@@ -54,6 +54,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo(
         <div>
           <Button buttonType="submit">Submit</Button>
         </div>
+        <Loader size={56} />
       </form>
     )
   },
