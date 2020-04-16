@@ -15,37 +15,43 @@ import getStyles from './AuthorsList.styles'
 
 export type AuthorsListProps = {} & RouteComponentProps
 
-export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
-  const { isInitialRender } = useInitialRender()
+export const AuthorsList: React.FC<AuthorsListProps> = React.memo(
+  ({ navigate }) => {
+    const { isInitialRender } = useInitialRender()
 
-  const dispatch = useDispatch()
-  const authors = useSelector(getAuthors)
-  const loading = useSelector(getAuthorsRequestPending) || isInitialRender
+    const dispatch = useDispatch()
+    const authors = useSelector(getAuthors)
+    const loading = useSelector(getAuthorsRequestPending) || isInitialRender
 
-  const styles = React.useMemo(() => getStyles(), [])
+    const styles = React.useMemo(() => getStyles(), [])
 
-  const refetchAuthors = React.useCallback(() => {
-    dispatch(fetchAuthors())
-  }, [dispatch])
+    const refetchAuthors = React.useCallback(() => {
+      dispatch(fetchAuthors())
+    }, [dispatch])
 
-  React.useEffect(() => {
-    refetchAuthors()
-  }, [refetchAuthors])
+    const handleAddAuthorClick = React.useCallback(() => {
+      navigate && navigate('/authors/new')
+    }, [navigate])
 
-  return (
-    <>
-      <div className={styles.header}>
-        <h2 className={styles.headerTitle}>My Authors</h2>
-        <Button onClick={() => console.log(`add an author`)}>
-          Add an Author
-        </Button>
-      </div>
+    React.useEffect(() => {
+      refetchAuthors()
+    }, [refetchAuthors])
 
-      {loading ? (
-        <Loader size={56} />
-      ) : (
-        authors.map((author) => <AuthorCard author={author} key={author.id} />)
-      )}
-    </>
-  )
-})
+    return (
+      <>
+        <div className={styles.header}>
+          <h2 className={styles.headerTitle}>My Authors</h2>
+          <Button onClick={handleAddAuthorClick}>Add an Author</Button>
+        </div>
+
+        {loading ? (
+          <Loader size={56} />
+        ) : (
+          authors.map((author) => (
+            <AuthorCard author={author} key={author.id} />
+          ))
+        )}
+      </>
+    )
+  },
+)

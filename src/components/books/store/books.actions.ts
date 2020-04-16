@@ -7,10 +7,12 @@ export const fetchBooks = createAsyncThunk(
   async () =>
     await api.jsonApiRequest({
       url: `books`,
-      fields: {
-        author: ['firstName', 'lastName'],
-        book: ['title', 'author'],
+      query: {
+        fields: {
+          author: ['firstName', 'lastName'],
+          book: ['title', 'author'],
+        },
+        include: ['author'],
       },
-      include: ['author'],
     }),
 )

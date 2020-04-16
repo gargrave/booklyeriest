@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { Link, Router } from '@reach/router'
 
 import { store } from 'store'
-import { AuthorsList } from 'components/authors/containers'
+import { AuthorsList, CreateAuthor } from 'components/authors/containers'
 import { BooksList } from 'components/books/containers'
 
 import getStyles from './App.styles'
@@ -23,6 +23,7 @@ export const App: React.FC = () => {
         <Provider store={store}>
           <Router>
             <AuthorsList path="authors" />
+            <CreateAuthor path="authors/new" />
             <BooksList path="books" />
           </Router>
         </Provider>
