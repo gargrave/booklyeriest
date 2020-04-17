@@ -14,7 +14,7 @@ export const AuthorCard: React.FC<AuthorCardProps> = React.memo(
     const styles = React.useMemo(() => getStyles(), [])
 
     return (
-      <Card hoverable={true}>
+      <Card className={styles.authorCard} hoverable={true}>
         <div className={styles.authorName}>
           {author.firstName} {author.lastName}
         </div>

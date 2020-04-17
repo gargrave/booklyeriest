@@ -1,11 +1,16 @@
 import { css } from 'emotion'
 
-const bookName = () => css`
+const bookCard = css`
+  padding: 12px 24px;
+`
+
+const bookName = css`
   font-weight: 500;
 `
 
 export default () => {
   return {
-    bookName: bookName(),
+    bookCard,
+    bookName,
   }
 }
