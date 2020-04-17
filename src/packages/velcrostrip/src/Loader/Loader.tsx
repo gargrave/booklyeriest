@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { cx } from 'emotion'
 
 import { StyleTheme } from '../styles'
-import { arr, classNames } from '../utils'
+import { arr } from '../utils'
 
 import getStyles from './styles'
 
@@ -87,7 +88,7 @@ export const Loader: React.FC<LoaderProps> = React.memo(
         )}
 
         <div
-          className={classNames(styles.wrapper, className)}
+          className={cx(styles.wrapper, className)}
           data-testid={loaderTestIds.wrapper}
         >
           <div className={styles.loader}>

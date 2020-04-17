@@ -1,18 +1,23 @@
 import * as React from 'react'
+import { Button, Loader } from '@gargrave/velcrostrip'
 
-import { Button, InputField, Loader, LoaderShape } from 'packages/velcrostrip'
+import { InputField } from 'packages/velcrostrip'
+
+import getStyles from './AuthorForm.styles'
 
 export type AuthorFormProps = {
-  loading?: boolean // TODO: show a loader when loading
+  loading?: boolean
   onSubmit: (payload) => void
 }
 
 export const AuthorForm: React.FC<AuthorFormProps> = React.memo(
-  ({ onSubmit }) => {
+  ({ loading, onSubmit }) => {
     const [formState, setFormState] = React.useState({
       firstName: '',
       lastName: '',
     })
+
+    const styles = React.useMemo(() => getStyles(), [])
 
     const handleInputChange = React.useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,14 +42,17 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo(
     )
 
     return (
-      <form onSubmit={handleSubmit} style={{ position: 'relative' }}>
+      <form className={styles.authorForm} onSubmit={handleSubmit}>
         <InputField
+          disabled={loading}
           id="firstName"
           label="First name"
           onChange={handleInputChange}
           value={formState.firstName}
         />
+
         <InputField
+          disabled={loading}
           id="lastName"
           label="Last name"
           onChange={handleInputChange}
@@ -52,9 +60,12 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo(
         />
 
         <div>
-          <Button buttonType="submit">Submit</Button>
+          <Button buttonType="submit" disabled={loading}>
+            Submit
+          </Button>
         </div>
-        <Loader size={56} />
+
+        {loading && <Loader overlay={true} size={56} />}
       </form>
     )
   },

@@ -5,3 +5,7 @@ export const centeredFlex = css`
   display: flex;
   justify-content: center;
 `
+
+export const crudForm = css`
+  position: relative;
+`

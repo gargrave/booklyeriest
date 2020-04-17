@@ -1275,20 +1275,15 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.37.tgz#98a2a45b6854680fd9321daa24317a3a14fb20c3"
   integrity sha512-jreLH4/jlrULywKPQKMCjNGKY/ynZPZxiM8T6vD+JxpjOBqtXWcuBEzOktcQ5lWs3BlRi77NHOTLs23hkFXZiQ==
 
-"@gargrave/garlib@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.4.tgz#c01663b11dbb52578cd26bc74bad0cb585067be2"
-  integrity sha512-N4IWncZmUUlIZ1piki3+bE+kLbKYuEUNdkbx7ZUK/5Mh7yNNCCZwPNBavL0YjSQhG8URILCdDK5XBRHBdARZlg==
-
 "@gargrave/garlib@^0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.5.tgz#f3b094feb5bca609375703cb533f9c98e219a712"
   integrity sha512-MHRGAHTp/Ynow4J8ZjgaYJ0eIAKPz3piOqEDSxuXSCVtvrwa/nenwcq2ZBYSANiem5RBsWiIjLkKTLtVuEWmJg==
 
-"@gargrave/velcrostrip@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.1.1.tgz#22d3b110c2bb3c04ef9f7dd161b901e32e971637"
-  integrity sha512-QL0hdiwHa7Ya7DafYchvzKVid+Zah7MZJUS3lFAaXSoRmBBYYNYGOvazPm7QcfTRv56cSUGSmWJoljuJHU/t4g==
+"@gargrave/velcrostrip@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.1.2.tgz#19961d2800574bc139680d80b7fa67c75c3cd7b6"
+  integrity sha512-i9tqDHeyNJ/hif3UhAhxcNN6WiUVVERpKhTbKUuD7hYjB2a2TP+oDJqnKOkuVfQTErGudViTCMRnpI3cdO7hSw==
   dependencies:
     "@gargrave/garlib" "^0.0.5"
     emotion "^10.0.27"
