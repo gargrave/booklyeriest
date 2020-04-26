@@ -1,10 +1,5 @@
 import { css } from 'emotion'
 
-const wrapper = () => css`
-  min-height: 256px;
-  position: relative;
-`
-
 const header = () => css`
   align-items: center;
   display: flex;
@@ -22,6 +17,5 @@ export default () => {
   return {
     header: header(),
     headerTitle: headerTitle(),
-    wrapper: wrapper(),
   }
 }

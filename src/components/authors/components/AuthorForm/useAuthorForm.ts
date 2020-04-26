@@ -1,6 +1,8 @@
 import * as React from 'react'
 import * as yup from 'yup'
+import * as R from 'ramda'
 
+import { Author, authorAttrNames } from 'components/authors/store'
 import { useFormState } from 'utils/hooks'
 import { AuthorFormProps } from './AuthorForm'
 
@@ -28,12 +30,20 @@ const initialState: AuthorFormState = {
   lastName: '',
 }
 
-export const useAuthorForm = ({ loading, onSubmit }: AuthorFormProps) => {
+const getInitialState = (author?: Author): AuthorFormState => {
+  return author ? R.pick(authorAttrNames, author) : initialState
+}
+
+export const useAuthorForm = ({
+  author,
+  loading,
+  onSubmit,
+}: AuthorFormProps) => {
   const styles = React.useMemo(() => getStyles(), [])
 
   const { formState, handleInputChange, valid } = useFormState<AuthorFormState>(
     {
-      initialState,
+      initialState: getInitialState(author),
       schema,
     },
   )

@@ -51,3 +51,31 @@ export const createAuthor = createAsyncThunk(
     )
   },
 )
+
+export const updateAuthor = createAsyncThunk(
+  'authors/updateAuthor',
+  async (payload: AuthorAttrs) => {
+    const attributes = {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+    }
+
+    // TODO: need to add authorId to request
+    return await api.jsonApiRequest<AuthorAttrs>(
+      {
+        url: `authors`,
+        body: {
+          attributes,
+          type: 'author',
+        },
+      },
+      {
+        // TODO: use the 'application/vnd.api+json' header once the API supports it
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'PATCH',
+      },
+    )
+  },
+)

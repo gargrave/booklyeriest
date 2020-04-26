@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
-// import { Button, Loader } from '@gargrave/velcrostrip'
-import { Button, Loader } from 'packages/velcrostrip'
+import { Button, Loader } from '@gargrave/velcrostrip'
 
 import { AuthorCard } from 'components/authors/components'
 import {
@@ -30,29 +29,43 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(
       dispatch(fetchAuthors())
     }, [dispatch])
 
+    const handleAuthorClick = React.useCallback(
+      (id: string) => {
+        navigate && navigate(`/authors/${id}`)
+      },
+      [navigate],
+    )
+
     const handleAddAuthorClick = React.useCallback(() => {
       navigate && navigate('/authors/new')
     }, [navigate])
 
     React.useEffect(() => {
+      // TODO: move this data bootstrapping top level, rather than just in this view
       refetchAuthors()
     }, [refetchAuthors])
 
     return (
-      <>
+      <div className={styles.wrapper}>
         <div className={styles.header}>
           <h2 className={styles.headerTitle}>My Authors</h2>
-          <Button onClick={handleAddAuthorClick}>Add an Author</Button>
+          <Button disabled={loading} onClick={handleAddAuthorClick}>
+            Add an Author
+          </Button>
         </div>
 
         {loading ? (
-          <Loader size={56} />
+          <Loader overlay={true} size={56} />
         ) : (
           authors.map((author) => (
-            <AuthorCard author={author} key={author.id} />
+            <AuthorCard
+              author={author}
+              key={author.id}
+              onClick={() => handleAuthorClick(author.id)}
+            />
           ))
         )}
-      </>
+      </div>
     )
   },
 )

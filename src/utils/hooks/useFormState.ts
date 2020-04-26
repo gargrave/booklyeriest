@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { produce } from 'immer'
 import * as yup from 'yup'
+import * as R from 'ramda'
 
 type UseFormStateProps<T> = {
   initialState: T
@@ -11,6 +12,8 @@ export function useFormState<T>({
   initialState,
   schema,
 }: UseFormStateProps<T>) {
+  const original = React.useRef<T>(initialState)
+
   const [valid, setValid] = React.useState(false)
   const [formState, setFormState] = React.useState<T>(initialState)
 
@@ -32,7 +35,8 @@ export function useFormState<T>({
   React.useEffect(() => {
     const asyncValidate = async () => {
       const newStateIsValid = await schema.isValid(formState)
-      setValid(newStateIsValid)
+      const newStateHasChanged = !R.equals(formState, original.current)
+      setValid(newStateIsValid && newStateHasChanged)
     }
     asyncValidate()
   }, [formState, schema])

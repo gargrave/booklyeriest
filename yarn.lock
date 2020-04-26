@@ -1280,10 +1280,10 @@
   resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.5.tgz#f3b094feb5bca609375703cb533f9c98e219a712"
   integrity sha512-MHRGAHTp/Ynow4J8ZjgaYJ0eIAKPz3piOqEDSxuXSCVtvrwa/nenwcq2ZBYSANiem5RBsWiIjLkKTLtVuEWmJg==
 
-"@gargrave/velcrostrip@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.1.2.tgz#19961d2800574bc139680d80b7fa67c75c3cd7b6"
-  integrity sha512-i9tqDHeyNJ/hif3UhAhxcNN6WiUVVERpKhTbKUuD7hYjB2a2TP+oDJqnKOkuVfQTErGudViTCMRnpI3cdO7hSw==
+"@gargrave/velcrostrip@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.1.4.tgz#ca3f54989cb4c05e0d4050f0d0ea19bab48b7db4"
+  integrity sha512-FaAtgrhC9G2ulDQb71ZPwVgavl5gG/o5TPhiUvojpnmCmh4P0vF44Pa+AVU8hsBR2h2zWReIlGLK2pkbWSkLFA==
   dependencies:
     "@gargrave/garlib" "^0.0.5"
     emotion "^10.0.27"

@@ -1,10 +1,12 @@
 import * as React from 'react'
-// import { Button, Loader } from '@gargrave/velcrostrip'
+import { Button, Loader } from '@gargrave/velcrostrip'
 
-import { Button, Loader, InputField } from 'packages/velcrostrip'
+import { Author } from 'components/authors/store'
+import { InputField } from 'packages/velcrostrip'
 import { useAuthorForm } from './useAuthorForm'
 
 export type AuthorFormProps = {
+  author?: Author
   loading?: boolean
   onSubmit: (payload) => void
 }
