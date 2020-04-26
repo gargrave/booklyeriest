@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
-import { Button, Loader } from '@gargrave/velcrostrip'
+// import { Button, Loader } from '@gargrave/velcrostrip'
+import { Button, Loader } from 'packages/velcrostrip'
 
 import { AuthorCard } from 'components/authors/components'
 import {

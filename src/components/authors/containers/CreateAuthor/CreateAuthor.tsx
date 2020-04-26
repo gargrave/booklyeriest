@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
+import { Card } from '@gargrave/velcrostrip'
 
-import { AuthorForm } from '../../components'
+import { createAuthor } from 'components/authors/store'
+import { AuthorForm } from 'components/authors/components'
 
 import getStyles from './CreateAuthor.styles'
-import { createAuthor } from 'components/authors/store'
-import { Card } from 'packages/velcrostrip'
 
 export type CreateAuthorProps = {} & RouteComponentProps
 

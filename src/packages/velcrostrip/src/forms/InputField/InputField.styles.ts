@@ -1,9 +1,7 @@
 import { css } from 'emotion'
-import { InputFieldProps } from './InputField'
 
-// type Props = Required<
-//   Pick<InputFieldProps, 'readonly'>
-// >
+const BORDER_COLOR = '#ced4da'
+const DISABLED_BG_COLOR = '#e6e8ea'
 
 const wrapper = css`
   display: flex;
@@ -16,9 +14,9 @@ const label = css`
 `
 
 const input = css`
-  background-color: #fff;
+  background: white;
   border-radius: 0.25rem;
-  border: 1px solid #ddd;
+  border: 1px solid ${BORDER_COLOR};
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   color: #111;
   font-family: inherit;
@@ -32,6 +30,10 @@ const input = css`
   transition: border-color 0.1s, background-color 0.1s, color 0.1s;
   white-space: nowrap;
   width: 100%;
+
+  &:disabled {
+    background: ${DISABLED_BG_COLOR};
+  }
 `
 
 export default () => {

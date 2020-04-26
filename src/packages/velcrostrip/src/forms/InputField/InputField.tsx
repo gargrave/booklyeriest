@@ -5,11 +5,11 @@ import getStyles from './InputField.styles'
 type InputType = 'text' | 'email' | 'password'
 
 export type InputFieldProps = {
-  // disabled?
+  disabled?: boolean
   id: string
   inputType?: InputType
   label?: string
-  // maxLength?
+  maxLength?: number
   placeholder?: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   ref?: React.Ref<HTMLInputElement>
@@ -18,7 +18,16 @@ export type InputFieldProps = {
 
 export const InputField: React.ForwardRefExoticComponent<InputFieldProps> = React.forwardRef(
   (
-    { id, inputType = 'text', label, onChange, placeholder, value },
+    {
+      disabled,
+      id,
+      inputType = 'text',
+      label,
+      maxLength = 255,
+      onChange,
+      placeholder,
+      value,
+    },
     ref?: React.Ref<HTMLInputElement>,
   ) => {
     // If a forward-ref is passed in, use that for our input ref; otherwise, just make a new one
@@ -36,9 +45,11 @@ export const InputField: React.ForwardRefExoticComponent<InputFieldProps> = Reac
 
         <input
           className={styles.input}
+          disabled={disabled}
           id={id}
-          placeholder={placeholder}
+          maxLength={maxLength}
           onChange={onChange}
+          placeholder={placeholder}
           ref={inputElRef}
           type={inputType}
           value={value}
