@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { produce } from 'immer'
 import * as yup from 'yup'
 
+import { useFormState } from 'utils/hooks'
 import { AuthorFormProps } from './AuthorForm'
 
 import getStyles from './AuthorForm.styles'
@@ -21,56 +21,45 @@ const schema = yup.object().shape({
     .max(128),
 })
 
-type FormState = yup.InferType<typeof schema>
+type AuthorFormState = yup.InferType<typeof schema>
+
+const initialState: AuthorFormState = {
+  firstName: '',
+  lastName: '',
+}
 
 export const useAuthorForm = ({ loading, onSubmit }: AuthorFormProps) => {
   const styles = React.useMemo(() => getStyles(), [])
 
-  const [valid, setValid] = React.useState(false)
-  const [formState, setFormState] = React.useState<FormState>({
-    firstName: '',
-    lastName: '',
-  })
-
-  const handleInputChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { id, value } = event.target
-
-      if (id in formState) {
-        setFormState(
-          produce(formState, (draft) => {
-            draft[id] = value
-          }),
-        )
-      }
+  const { formState, handleInputChange, valid } = useFormState<AuthorFormState>(
+    {
+      initialState,
+      schema,
     },
-    [formState],
   )
+
+  const [canSubmit, setCanSubmit] = React.useState(false)
 
   const handleSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
 
-      if (!valid || loading) return
-      onSubmit(formState)
+      if (canSubmit) {
+        onSubmit(formState)
+      }
     },
-    [formState, loading, onSubmit, valid],
+    [canSubmit, formState, onSubmit],
   )
 
   React.useEffect(() => {
-    const asyncValidate = async () => {
-      const newStateIsValid = await schema.isValid(formState)
-      setValid(newStateIsValid)
-    }
-    asyncValidate()
-  }, [formState])
+    setCanSubmit(valid && !loading)
+  }, [loading, valid])
 
   return {
-    canSubmit: valid && !loading,
+    canSubmit,
     formState,
     handleInputChange,
     handleSubmit,
     styles,
-    valid,
   }
 }

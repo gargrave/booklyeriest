@@ -13,6 +13,7 @@ export type InputFieldProps = {
   placeholder?: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   ref?: React.Ref<HTMLInputElement>
+  required?: boolean
   value: string
 }
 
@@ -26,6 +27,7 @@ export const InputField: React.ForwardRefExoticComponent<InputFieldProps> = Reac
       maxLength = 255,
       onChange,
       placeholder,
+      required = false,
       value,
     },
     ref?: React.Ref<HTMLInputElement>,
@@ -51,6 +53,7 @@ export const InputField: React.ForwardRefExoticComponent<InputFieldProps> = Reac
           onChange={onChange}
           placeholder={placeholder}
           ref={inputElRef}
+          required={required}
           type={inputType}
           value={value}
         />

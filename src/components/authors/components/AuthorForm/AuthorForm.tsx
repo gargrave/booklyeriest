@@ -26,6 +26,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
         id="firstName"
         label="First name"
         onChange={handleInputChange}
+        required={true}
         value={formState.firstName}
       />
 
@@ -34,6 +35,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
         id="lastName"
         label="Last name"
         onChange={handleInputChange}
+        required={true}
         value={formState.lastName}
       />
 
