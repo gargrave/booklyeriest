@@ -9,6 +9,7 @@ import getStyles from './styles'
 export enum LoaderShape {
   DualRing = 'dualRing',
   Ellipsis = 'ellipsis',
+  Grid = 'grid',
   SingleRing = 'singleRing',
 }
 
@@ -21,6 +22,7 @@ export const loaderTestIds = {
 const childrenToTypeMap = {
   [LoaderShape.DualRing]: 0,
   [LoaderShape.Ellipsis]: 4,
+  [LoaderShape.Grid]: 9,
   [LoaderShape.SingleRing]: 0,
 }
 
@@ -79,7 +81,10 @@ export const Loader: React.FC<LoaderProps> = React.memo(
     ])
 
     return (
-      <div className={styles.container} data-testid={loaderTestIds.container}>
+      <div
+        className={cx(styles.container, className)}
+        data-testid={loaderTestIds.container}
+      >
         {overlay && (
           <div
             className={styles.backdrop}
@@ -87,10 +92,7 @@ export const Loader: React.FC<LoaderProps> = React.memo(
           />
         )}
 
-        <div
-          className={cx(styles.wrapper, className)}
-          data-testid={loaderTestIds.wrapper}
-        >
+        <div className={styles.wrapper} data-testid={loaderTestIds.wrapper}>
           <div className={styles.loader}>
             {childMapper.map((_, idx) => (
               <div key={idx} />

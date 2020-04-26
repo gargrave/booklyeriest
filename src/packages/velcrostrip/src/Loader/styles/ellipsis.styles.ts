@@ -3,7 +3,7 @@ import { css, keyframes } from 'emotion'
 import { colors } from '../../styles'
 import { LoaderStylesProps, LoaderBuilder } from './loaderStyles.types'
 
-const anim1 = keyframes`  
+const anim1 = keyframes`
   0% {
     transform: scale(0);
   }
