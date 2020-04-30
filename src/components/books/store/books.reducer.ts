@@ -14,7 +14,7 @@ const booksSlice = createSlice({
 
   extraReducers: {
     [fetchBooks.fulfilled.toString()]: (state, action) => {
-      state.data = action.payload.book
+      state.data = action.payload.book || {}
     },
   },
 })

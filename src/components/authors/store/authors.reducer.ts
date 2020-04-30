@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { fetchBooks } from 'components/books/store'
-import { fetchAuthors } from './authors.actions'
+import { createAuthor, fetchAuthors } from './authors.actions'
 
 const authorsSlice = createSlice({
   name: 'authors',
@@ -19,12 +19,26 @@ const authorsSlice = createSlice({
     },
 
     [fetchAuthors.fulfilled.toString()]: (state, action) => {
-      state.data = action.payload.author
+      state.data = action.payload.author || {}
       state.requestPending = false
     },
 
+    [createAuthor.pending.toString()]: (state, _action) => {
+      state.requestPending = true
+    },
+
+    [createAuthor.fulfilled.toString()]: (state, action) => {
+      const author = action.payload.author[0]
+      state.data[author.id] = author
+      state.requestPending = false
+    },
+
+    [createAuthor.rejected.toString()]: (state, _action) => {
+      state.requestPending = true
+    },
+
     [fetchBooks.fulfilled.toString()]: (state, action) => {
-      state.data = action.payload.author
+      state.data = action.payload.author || {}
     },
   },
 })
