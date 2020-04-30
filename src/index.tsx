@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import { App } from 'components/core/containers/App'
 
 import * as serviceWorker from './serviceWorker'
-import './config/firebase' // initialize firebase
 
 import 'styles/normalize.css'
 import 'styles/reset.css'
