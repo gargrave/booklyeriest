@@ -9,3 +9,13 @@ export const centeredFlex = css`
 export const crudForm = css`
   position: relative;
 `
+
+export const formButtons = css`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    flex: 1 0;
+  }
+`

@@ -13,12 +13,15 @@ export type CreateAuthorProps = {} & RouteComponentProps
 export const CreateAuthor: React.FC<CreateAuthorProps> = React.memo(
   ({ navigate }) => {
     const dispatch = useDispatch()
-
     const [loading, setLoading] = React.useState(false)
 
     const styles = React.useMemo(() => getStyles(), [])
 
-    const handleAuthorSubmit = React.useCallback(
+    const goToListPage = React.useCallback(() => {
+      navigate && navigate('/authors')
+    }, [navigate])
+
+    const handleSubmit = React.useCallback(
       async (payload) => {
         setLoading(true)
         try {
@@ -26,11 +29,15 @@ export const CreateAuthor: React.FC<CreateAuthorProps> = React.memo(
         } catch (err) {
           //
         } finally {
-          navigate && navigate('/authors')
+          goToListPage()
         }
       },
-      [dispatch, navigate],
+      [dispatch, goToListPage],
     )
+
+    const handleCancel = React.useCallback(() => {
+      goToListPage()
+    }, [goToListPage])
 
     return (
       <>
@@ -39,7 +46,11 @@ export const CreateAuthor: React.FC<CreateAuthorProps> = React.memo(
         </div>
 
         <Card>
-          <AuthorForm loading={loading} onSubmit={handleAuthorSubmit} />
+          <AuthorForm
+            loading={loading}
+            onCancel={handleCancel}
+            onSubmit={handleSubmit}
+          />
         </Card>
       </>
     )

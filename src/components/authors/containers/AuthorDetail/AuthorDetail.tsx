@@ -11,7 +11,13 @@ export type AuthorDetailProps = {
 } & RouteComponentProps
 
 export const AuthorDetail: React.FC<AuthorDetailProps> = React.memo((props) => {
-  const { author, handleAuthorSubmit, loading, styles } = useAuthorDetail(props)
+  const {
+    author,
+    handleCancel,
+    handleSubmit,
+    loading,
+    styles,
+  } = useAuthorDetail(props)
 
   return (
     <>
@@ -23,7 +29,8 @@ export const AuthorDetail: React.FC<AuthorDetailProps> = React.memo((props) => {
         <AuthorForm
           author={author}
           loading={loading}
-          onSubmit={handleAuthorSubmit}
+          onCancel={handleCancel}
+          onSubmit={handleSubmit}
         />
       </Card>
     </>

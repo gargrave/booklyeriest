@@ -14,41 +14,45 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
 
   const styles = React.useMemo(() => getStyles(), [])
 
-  const handleAuthorSubmit = React.useCallback(
+  const goToListPage = React.useCallback(() => {
+    navigate && navigate('/authors')
+  }, [navigate])
+
+  const handleSubmit = React.useCallback(
     async (payload) => {
       setLoading(true)
       try {
-        console.log(`START`)
         await dispatch(
           updateAuthor({
             id: authorId,
             ...payload,
           }),
         )
-        console.log(`END`)
       } catch (err) {
         //
-        console.log(`CATCH`)
-        console.log({ err })
         throw err
       } finally {
-        console.log(`FINALLY`)
-        navigate && navigate('/authors')
+        goToListPage()
       }
     },
-    [authorId, dispatch, navigate],
+    [authorId, dispatch, goToListPage],
   )
+
+  const handleCancel = React.useCallback(() => {
+    goToListPage()
+  }, [goToListPage])
 
   React.useEffect(() => {
     if (!author) {
       // TODO: instead of redirecting, trigger a full re-fetch of authors
-      navigate && navigate('/authors')
+      goToListPage()
     }
-  }, [author, navigate])
+  }, [author, goToListPage])
 
   return {
     author,
-    handleAuthorSubmit,
+    handleCancel,
+    handleSubmit,
     loading,
     styles,
   }

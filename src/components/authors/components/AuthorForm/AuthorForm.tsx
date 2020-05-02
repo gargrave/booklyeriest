@@ -1,17 +1,18 @@
 import * as React from 'react'
 
 import { Author } from 'components/authors/store'
-import { Button, InputField, Loader } from 'packages/velcrostrip'
+import { Button, InputField, Loader, StyleTheme } from 'packages/velcrostrip'
 import { useAuthorForm } from './useAuthorForm'
 
 export type AuthorFormProps = {
   author?: Author
   loading?: boolean
+  onCancel: () => void
   onSubmit: (payload) => void
 }
 
 export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
-  const { loading } = props
+  const { loading, onCancel } = props
   const {
     canSubmit,
     formState,
@@ -40,7 +41,15 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
         value={formState.lastName}
       />
 
-      <div>
+      <div className={styles.buttons}>
+        <Button
+          disabled={loading}
+          onClick={onCancel}
+          type={StyleTheme.Secondary}
+        >
+          Cancel
+        </Button>
+
         <Button buttonType="submit" disabled={!canSubmit}>
           Submit
         </Button>
