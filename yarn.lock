@@ -1053,21 +1053,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@gargrave/garlib@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@gargrave/garlib/-/garlib-0.0.5.tgz#f3b094feb5bca609375703cb533f9c98e219a712"
-  integrity sha512-MHRGAHTp/Ynow4J8ZjgaYJ0eIAKPz3piOqEDSxuXSCVtvrwa/nenwcq2ZBYSANiem5RBsWiIjLkKTLtVuEWmJg==
-
-"@gargrave/velcrostrip@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@gargrave/velcrostrip/-/velcrostrip-0.1.4.tgz#ca3f54989cb4c05e0d4050f0d0ea19bab48b7db4"
-  integrity sha512-FaAtgrhC9G2ulDQb71ZPwVgavl5gG/o5TPhiUvojpnmCmh4P0vF44Pa+AVU8hsBR2h2zWReIlGLK2pkbWSkLFA==
-  dependencies:
-    "@gargrave/garlib" "^0.0.5"
-    emotion "^10.0.27"
-    polished "^3.5.1"
-    ramda "^0.27.0"
-
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -8443,13 +8428,6 @@ polished@^3.4.4:
   integrity sha512-x9PKeExyI9AhWrJP3Q57I1k7GInujjiVBJMPFmycj9hX1yCOo/X9eu9eZwxgOziiXge3WbFQ5XOmkzunOntBSA==
   dependencies:
     "@babel/runtime" "^7.6.3"
-
-polished@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-3.5.1.tgz#657b6faf4c2308f3e0b1951196803a5e5d67b122"
-  integrity sha512-GVbvskpBiDV5TknurGL6OyFfLHsCknxbU8w5iMppT8rW0tLEoQHrIRfrPNPqGXNj3HGhkjRvhmg59Fy7HSnCAw==
-  dependencies:
-    "@babel/runtime" "^7.8.7"
 
 portfinder@^1.0.25:
   version "1.0.25"

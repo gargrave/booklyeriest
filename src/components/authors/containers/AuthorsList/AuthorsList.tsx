@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
-import { Button, Loader } from '@gargrave/velcrostrip'
 
 import { AuthorCard } from 'components/authors/components'
 import {
@@ -9,6 +8,7 @@ import {
   getAuthors,
   getAuthorsRequestPending,
 } from 'components/authors/store'
+import { Button, Loader } from 'packages/velcrostrip'
 import { useInitialRender } from 'utils'
 
 import getStyles from './AuthorsList.styles'

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
-import { Loader } from '@gargrave/velcrostrip'
 
 import { BookCard } from 'components/books/components'
 import {
@@ -9,6 +8,7 @@ import {
   getBooks,
   getBooksRequestPending,
 } from 'components/books/store'
+import { Loader } from 'packages/velcrostrip'
 import { useInitialRender } from 'utils'
 
 export type BooksListProps = {} & RouteComponentProps

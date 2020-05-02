@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Card, CardProps } from '@gargrave/velcrostrip'
+import { Card, CardProps } from 'packages/velcrostrip'
 
 import { Author } from 'components/authors/store'
 

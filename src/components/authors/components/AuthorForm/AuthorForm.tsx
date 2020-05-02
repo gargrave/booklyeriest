@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { Button, Loader } from '@gargrave/velcrostrip'
 
 import { Author } from 'components/authors/store'
-import { InputField } from 'packages/velcrostrip'
+import { Button, InputField, Loader } from 'packages/velcrostrip'
 import { useAuthorForm } from './useAuthorForm'
 
 export type AuthorFormProps = {

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { Card } from '@gargrave/velcrostrip'
 
 import { AuthorForm } from 'components/authors/components'
+import { Card } from 'packages/velcrostrip'
 
 import { useAuthorDetail } from './useAuthorDetail'
 
