@@ -13,11 +13,12 @@ module.exports = {
   ],
   sections: [
     {
-      name: 'Common Components',
-      components: ['src/**/*.examples.tsx'],
+      name: 'Velcrostrip Components',
+      components: ['src/packages/velcrostrip/**/*.examples.tsx'],
     },
   ],
   styleguideDir: 'docs',
+  styles: path.join(__dirname, 'src/styles/styleguide.js'),
   title: `Booklyeriest ${pkg.version}`,
   webpackConfig: require('./config/webpack.config.js'),
 }

@@ -3,17 +3,17 @@ import { css } from 'emotion'
 const BORDER_COLOR = '#ced4da'
 const DISABLED_BG_COLOR = '#e6e8ea'
 
-const wrapper = css`
+const wrapper = () => css`
   display: flex;
   flex-flow: column;
   margin-bottom: 1.25rem;
 `
 
-const label = css`
+const label = () => css`
   margin-bottom: 0.25rem;
 `
 
-const input = css`
+const input = () => css`
   background: white;
   border-radius: 0.25rem;
   border: 1px solid ${BORDER_COLOR};
@@ -38,8 +38,8 @@ const input = css`
 
 export default () => {
   return {
-    input,
-    label,
-    wrapper,
+    input: input(),
+    label: label(),
+    wrapper: wrapper(),
   }
 }

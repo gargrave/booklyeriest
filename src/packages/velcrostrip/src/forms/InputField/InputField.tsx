@@ -46,6 +46,7 @@ export const InputField: React.ForwardRefExoticComponent<InputFieldProps> = Reac
         )}
 
         <input
+          autoComplete="false"
           className={styles.input}
           disabled={disabled}
           id={id}
