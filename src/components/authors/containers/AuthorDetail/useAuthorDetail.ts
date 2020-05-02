@@ -18,14 +18,25 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
     async (payload) => {
       setLoading(true)
       try {
-        await dispatch(updateAuthor(payload))
+        console.log(`START`)
+        await dispatch(
+          updateAuthor({
+            id: authorId,
+            ...payload,
+          }),
+        )
+        console.log(`END`)
       } catch (err) {
         //
+        console.log(`CATCH`)
+        console.log({ err })
+        throw err
       } finally {
+        console.log(`FINALLY`)
         navigate && navigate('/authors')
       }
     },
-    [dispatch, navigate],
+    [authorId, dispatch, navigate],
   )
 
   React.useEffect(() => {

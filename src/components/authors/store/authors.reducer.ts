@@ -1,7 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { fetchBooks } from 'components/books/store'
-import { createAuthor, fetchAuthors } from './authors.actions'
+import { getValuesFromAction } from 'store/store.utils'
+import { createAuthor, fetchAuthors, updateAuthor } from './authors.actions'
+import { AuthorsAction, ReduxAuthor } from './authors.types'
+
+const getAuthorMap = getValuesFromAction<ReduxAuthor>('author')
+
+const getAuthorList = (action: AuthorsAction): ReduxAuthor[] =>
+  Object.values(getAuthorMap(action)) || []
+
+const getFirstAuthor = (action: AuthorsAction): ReduxAuthor | undefined =>
+  getAuthorList(action)[0]
 
 const authorsSlice = createSlice({
   name: 'authors',
@@ -14,31 +24,64 @@ const authorsSlice = createSlice({
   reducers: {},
 
   extraReducers: {
-    [fetchAuthors.pending.toString()]: (state, _action) => {
+    /**************************************************
+     * Fetch Authors
+     **************************************************/
+    [fetchAuthors.pending.toString()]: (state) => {
       state.requestPending = true
     },
 
-    [fetchAuthors.fulfilled.toString()]: (state, action) => {
-      state.data = action.payload.author || {}
+    [fetchAuthors.fulfilled.toString()]: (state, action: AuthorsAction) => {
+      state.data = getAuthorMap(action)
       state.requestPending = false
     },
 
-    [createAuthor.pending.toString()]: (state, _action) => {
+    /**************************************************
+     * Fetch Books (with included Authors)
+     **************************************************/
+    [fetchBooks.fulfilled.toString()]: (state, action: AuthorsAction) => {
+      state.data = getAuthorMap(action)
+      state.requestPending = false
+    },
+
+    /**************************************************
+     * Create Author
+     **************************************************/
+    [createAuthor.pending.toString()]: (state) => {
       state.requestPending = true
     },
 
-    [createAuthor.fulfilled.toString()]: (state, action) => {
-      const author = action.payload.author[0]
+    [createAuthor.fulfilled.toString()]: (state, action: AuthorsAction) => {
+      state.requestPending = false
+
+      const author = getFirstAuthor(action)
+      if (!author) return
+
       state.data[author.id] = author
+    },
+
+    [createAuthor.rejected.toString()]: (state) => {
       state.requestPending = false
     },
 
-    [createAuthor.rejected.toString()]: (state, _action) => {
+    /**************************************************
+     * Update Author
+     **************************************************/
+    [updateAuthor.pending.toString()]: (state) => {
       state.requestPending = true
     },
 
-    [fetchBooks.fulfilled.toString()]: (state, action) => {
-      state.data = action.payload.author || {}
+    [updateAuthor.fulfilled.toString()]: (state, action: AuthorsAction) => {
+      state.requestPending = false
+
+      const author = getFirstAuthor(action)
+      if (!author) return
+
+      state.data[author.id] = author
+    },
+
+    [updateAuthor.rejected.toString()]: (state) => {
+      state.requestPending = false
     },
   },
 })

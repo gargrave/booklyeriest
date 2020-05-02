@@ -10,7 +10,6 @@ import { JsonApiRequest } from './api.types'
 const BASE_URL = 'http://localhost:8080/api/v1'
 
 // TODO: set the required header once the API properly supports it
-// TODO: redux is showing these requests as "rejected" why?
 export async function jsonApiRequest<T>(
   request: JsonApiRequest<T>,
   init?: RequestInit,

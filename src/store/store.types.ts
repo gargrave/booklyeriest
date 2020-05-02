@@ -16,3 +16,9 @@ export type GenericResource = {
 export type KeyObjectMap<T> = {
   [id: string]: T
 }
+
+export type ThunkAction<T> = {
+  payload: {
+    [id: string]: KeyObjectMap<T>
+  }
+}

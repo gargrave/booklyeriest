@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { api } from 'store'
-import { AuthorAttrs } from './authors.types'
+import { AuthorAttrs, Author } from './authors.types'
 
 export const fetchAuthors = createAsyncThunk(
   'authors/fetchAuthors',
@@ -40,6 +40,11 @@ export const createAuthor = createAsyncThunk(
           attributes,
           type: 'author',
         },
+        query: {
+          fields: {
+            author: ['firstName', 'lastName'],
+          },
+        },
       },
       {
         // TODO: use the 'application/vnd.api+json' header once the API supports it
@@ -54,7 +59,7 @@ export const createAuthor = createAsyncThunk(
 
 export const updateAuthor = createAsyncThunk(
   'authors/updateAuthor',
-  async (payload: AuthorAttrs) => {
+  async (payload: Author) => {
     const attributes = {
       firstName: payload.firstName,
       lastName: payload.lastName,
@@ -63,10 +68,15 @@ export const updateAuthor = createAsyncThunk(
     // TODO: need to add authorId to request
     return await api.jsonApiRequest<AuthorAttrs>(
       {
-        url: `authors`,
+        url: `authors/${payload.id}`,
         body: {
           attributes,
           type: 'author',
+        },
+        query: {
+          fields: {
+            author: ['firstName', 'lastName'],
+          },
         },
       },
       {
