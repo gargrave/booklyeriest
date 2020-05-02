@@ -2,7 +2,7 @@ import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
 
 import { AuthorForm } from 'components/authors/components'
-import { Card } from 'packages/velcrostrip'
+import { Button, Card, StyleTheme } from 'packages/velcrostrip'
 
 import { useAuthorDetail } from './useAuthorDetail'
 
@@ -14,6 +14,7 @@ export const AuthorDetail: React.FC<AuthorDetailProps> = React.memo((props) => {
   const {
     author,
     handleCancel,
+    handleDelete,
     handleSubmit,
     loading,
     styles,
@@ -23,6 +24,9 @@ export const AuthorDetail: React.FC<AuthorDetailProps> = React.memo((props) => {
     <>
       <div className={styles.header}>
         <h2 className={styles.headerTitle}>Update an Author</h2>
+        <Button onClick={handleDelete} type={StyleTheme.Danger}>
+          Delete
+        </Button>
       </div>
 
       <Card>

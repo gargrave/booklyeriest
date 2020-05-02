@@ -65,7 +65,6 @@ export const updateAuthor = createAsyncThunk(
       lastName: payload.lastName,
     }
 
-    // TODO: need to add authorId to request
     return await api.jsonApiRequest<AuthorAttrs>(
       {
         url: `authors/${payload.id}`,
@@ -85,6 +84,27 @@ export const updateAuthor = createAsyncThunk(
           'Content-Type': 'application/json',
         },
         method: 'PATCH',
+      },
+    )
+  },
+)
+
+export const deleteAuthor = createAsyncThunk(
+  'authors/deleteAuthor',
+  async (id: string) => {
+    return await api.jsonApiRequest<AuthorAttrs>(
+      {
+        url: `authors/${id}`,
+        body: {
+          type: 'author',
+        },
+      },
+      {
+        // TODO: use the 'application/vnd.api+json' header once the API supports it
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'DELETE',
       },
     )
   },

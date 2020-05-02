@@ -25,8 +25,9 @@ export async function jsonApiRequest<T>(
     body: parsedBody,
   })
   const json = await res.json()
-  const data = Array.isArray(json.data) ? json.data : [json.data]
-  const { included = [] } = json
+  const jsonData = json.data || []
+  const data = Array.isArray(jsonData) ? jsonData : [jsonData]
+  const { included = [], meta = {} } = json
 
   const normalize = R.reduce(flattenJsonApiObj, {})
   const normalizedData = normalize(data)
@@ -35,6 +36,7 @@ export async function jsonApiRequest<T>(
   return {
     ...normalizedData,
     ...normalizedIncluded,
+    meta,
   }
 }
 

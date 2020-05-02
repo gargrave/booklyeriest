@@ -2,7 +2,11 @@ import * as React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getAuthorById, updateAuthor } from 'components/authors/store'
+import {
+  deleteAuthor,
+  getAuthorById,
+  updateAuthor,
+} from 'components/authors/store'
 import { AuthorDetailProps } from './AuthorDetail'
 
 import getStyles from './AuthorDetail.styles'
@@ -29,7 +33,6 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
           }),
         )
       } catch (err) {
-        //
         throw err
       } finally {
         goToListPage()
@@ -37,6 +40,19 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
     },
     [authorId, dispatch, goToListPage],
   )
+
+  const handleDelete = React.useCallback(async () => {
+    if (!authorId) return
+
+    setLoading(true)
+    try {
+      await dispatch(deleteAuthor(authorId))
+    } catch (err) {
+      throw err
+    } finally {
+      goToListPage()
+    }
+  }, [authorId, dispatch, goToListPage])
 
   const handleCancel = React.useCallback(() => {
     goToListPage()
@@ -52,6 +68,7 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
   return {
     author,
     handleCancel,
+    handleDelete,
     handleSubmit,
     loading,
     styles,

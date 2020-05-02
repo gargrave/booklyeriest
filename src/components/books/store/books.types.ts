@@ -1,9 +1,11 @@
-import { GenericResource, KeyObjectMap } from 'store/store.types'
+import { GenericResource, KeyObjectMap, ThunkAction } from 'store/store.types'
 
 export type BooksState = {
   data: KeyObjectMap<ReduxBook>
   requestPending: boolean
 }
+
+export type BooksAction = ThunkAction<ReduxBook>
 
 export const bookAttrNames = ['title']
 

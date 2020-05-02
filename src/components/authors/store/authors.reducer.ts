@@ -1,8 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { fetchBooks } from 'components/books/store'
-import { getValuesFromAction } from 'store/store.utils'
-import { createAuthor, fetchAuthors, updateAuthor } from './authors.actions'
+import { getMetaId, getValuesFromAction } from 'store/store.utils'
+import {
+  createAuthor,
+  deleteAuthor,
+  fetchAuthors,
+  updateAuthor,
+} from './authors.actions'
 import { AuthorsAction, ReduxAuthor } from './authors.types'
 
 const getAuthorMap = getValuesFromAction<ReduxAuthor>('author')
@@ -81,6 +86,26 @@ const authorsSlice = createSlice({
     },
 
     [updateAuthor.rejected.toString()]: (state) => {
+      state.requestPending = false
+    },
+
+    /**************************************************
+     * Delete Author
+     **************************************************/
+    [deleteAuthor.pending.toString()]: (state) => {
+      state.requestPending = true
+    },
+
+    [deleteAuthor.fulfilled.toString()]: (state, action: AuthorsAction) => {
+      state.requestPending = false
+
+      const id = getMetaId(action)
+      if (!id) return
+
+      delete state.data[id]
+    },
+
+    [deleteAuthor.rejected.toString()]: (state) => {
       state.requestPending = false
     },
   },
