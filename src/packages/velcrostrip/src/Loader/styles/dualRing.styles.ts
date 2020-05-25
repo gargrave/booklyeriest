@@ -17,11 +17,11 @@ const anim = keyframes`
 `
 
 const dualRing = (props: LoaderStylesProps) => {
-  const color = props.baseColor ?? colors.theme[props.type]
+  const color = props.baseColor || colors.theme[props.type]
   const c1 = color
   const c2 = transparentize(0.6, c1)
-  const size = props.innerSize ?? defaultInnerSize(props)
-  const speed = props.speed ?? 1000
+  const size = props.innerSize || defaultInnerSize(props)
+  const speed = props.speed || 1000
 
   return css`
     height: 100%;

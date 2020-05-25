@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-booklyeriest-dev-104310-authRole",
+      "UnauthRoleArn": "arn:aws:iam::563196615433:role/amplify-booklyeriest-dev-104310-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::563196615433:role/amplify-booklyeriest-dev-104310-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-booklyeriest-dev-104310-deployment",
+      "UnauthRoleName": "amplify-booklyeriest-dev-104310-unauthRole",
+      "StackName": "amplify-booklyeriest-dev-104310",
+      "StackId": "arn:aws:cloudformation:us-east-1:563196615433:stack/amplify-booklyeriest-dev-104310/3512a060-9eaf-11ea-927b-0e4a688d3275",
+      "AmplifyAppId": "d3cnrwbs9ijseb"
+    },
+    "categories": {
+      "auth": {
+        "booklyeriest963c8147": {}
+      }
+    }
+  }
+}

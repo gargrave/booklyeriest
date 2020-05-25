@@ -6,11 +6,12 @@ export type AppState = {
   books: BooksState
 }
 
-export const genericAttrNames = ['id', 'type']
-
 export type GenericResource = {
   id: string
-  type: string
+}
+
+export type HasMany<T> = {
+  items: T[]
 }
 
 export type KeyObjectMap<T> = {
@@ -18,7 +19,5 @@ export type KeyObjectMap<T> = {
 }
 
 export type ThunkAction<T> = {
-  payload: {
-    [id: string]: KeyObjectMap<T>
-  }
+  payload: T
 }

@@ -5,6 +5,7 @@ import { RouteComponentProps } from '@reach/router'
 import { createAuthor } from 'components/authors/store'
 import { AuthorForm } from 'components/authors/components'
 import { Card } from 'packages/velcrostrip'
+import { logError } from 'utils/logger'
 
 import getStyles from './CreateAuthor.styles'
 
@@ -27,7 +28,7 @@ export const CreateAuthor: React.FC<CreateAuthorProps> = React.memo(
         try {
           await dispatch(createAuthor(payload))
         } catch (err) {
-          //
+          logError({ fn: 'createAuthor' }, err)
         } finally {
           goToListPage()
         }

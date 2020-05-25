@@ -7,6 +7,7 @@ import {
   getAuthorById,
   updateAuthor,
 } from 'components/authors/store'
+import { logError } from 'utils/logger'
 import { AuthorDetailProps } from './AuthorDetail'
 
 import getStyles from './AuthorDetail.styles'
@@ -33,6 +34,7 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
           }),
         )
       } catch (err) {
+        logError({ fn: 'updateAuthor' }, err)
         throw err
       } finally {
         goToListPage()
@@ -48,6 +50,7 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
     try {
       await dispatch(deleteAuthor(authorId))
     } catch (err) {
+      logError({ fn: 'deleteAuthor' }, err)
       throw err
     } finally {
       goToListPage()

@@ -30,6 +30,8 @@ const initialState: AuthorFormState = {
   lastName: '',
 }
 
+export const AuthorSchema = schema
+
 const getInitialState = (author?: Author): AuthorFormState => {
   return author ? R.pick(authorAttrNames, author) : initialState
 }
@@ -44,6 +46,8 @@ export const useAuthorForm = ({
   const { formState, handleInputChange, valid } = useFormState<AuthorFormState>(
     {
       initialState: getInitialState(author),
+      loading,
+      onSubmit,
       schema,
     },
   )

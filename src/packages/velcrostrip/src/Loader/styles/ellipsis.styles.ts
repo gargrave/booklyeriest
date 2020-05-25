@@ -24,8 +24,8 @@ const anim3 = keyframes`
 const ellipsis = (props: LoaderStylesProps) => {
   const { size } = props
 
-  const color = props.baseColor ?? colors.theme[props.type]
-  const speed = props.speed ?? 600
+  const color = props.baseColor || colors.theme[props.type]
+  const speed = props.speed || 600
 
   // get the nearest multiple of 3 so we can move the dots evenly
   const width = size - (size % 3)
@@ -34,7 +34,7 @@ const ellipsis = (props: LoaderStylesProps) => {
   // offset the starting position to get it as close to horizontally centered as possible
   const left = props.size - width + 1
   // size the dots based roughly on the wrapper size
-  const itemSize = props.innerSize ?? Math.floor(increment * 0.75)
+  const itemSize = props.innerSize || Math.floor(increment * 0.75)
 
   // (this keyframes requires knowledge of the dynamic sizing)
   const anim2 = keyframes`

@@ -23,7 +23,7 @@ const purple = '#b10dc9'
 const red = '#ff4136'
 const silver = '#ddd'
 const teal = '#39cccc'
-const white = 'white'
+const white = '#fff'
 const yellow = '#ffdc00'
 
 const base = Object.freeze({

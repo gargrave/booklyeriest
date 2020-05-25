@@ -1,0 +1,13 @@
+type Author @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  books: [Book] @connection(keyName: "byAuthor", fields: ["id"])
+}
+
+type Book @model @key(name: "byAuthor", fields: ["authorID"]) {
+  id: ID!
+  title: String!
+  authorID: ID!
+  author: Author @connection(fields: ["authorID"])
+}

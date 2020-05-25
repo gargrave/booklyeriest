@@ -1,49 +1,13 @@
-import * as R from 'ramda'
+import { API, graphqlOperation } from 'aws-amplify'
 
-import {
-  flattenJsonApiObj,
-  parseJsonApiBody,
-  parseJsonApiQuery,
-} from './api.helpers'
-import { JsonApiRequest } from './api.types'
+import { parseGqlPayload } from './api.helpers'
+import { GqlQueryWrapper } from './api.types'
 
-const BASE_URL = 'http://localhost:8080/api/v1'
-
-// TODO: set the required header once the API properly supports it
-export async function jsonApiRequest<T>(
-  request: JsonApiRequest<T>,
-  init?: RequestInit,
-) {
-  const { body, url } = request
-
-  const parsedQuery = parseJsonApiQuery(request)
-  const parsedBody = body && parseJsonApiBody<T>(body)
-
-  const fullUrl = `${BASE_URL}/${url}${parsedQuery}`
-  const res = await fetch(fullUrl, {
-    ...init,
-    body: parsedBody,
-  })
-  const json = await res.json()
-  const jsonData = json.data || []
-  const data = Array.isArray(jsonData) ? jsonData : [jsonData]
-  const { included = [], meta = {} } = json
-
-  const normalize = R.reduce(flattenJsonApiObj, {})
-  const normalizedData = normalize(data)
-  const normalizedIncluded = normalize(included)
-
-  return {
-    ...normalizedData,
-    ...normalizedIncluded,
-    meta,
-  }
-}
-
-export const request = async (url: string, init?: RequestInit) =>
-  fetch(`${BASE_URL}/${url}`, init).then((res) => res.json())
-
-export const api = {
-  jsonApiRequest,
-  request,
+export async function gql<T = {}>({
+  name,
+  query,
+  variables,
+}: GqlQueryWrapper<T>) {
+  const result = await API.graphql(graphqlOperation(query, variables))
+  return parseGqlPayload(name)(result)
 }

@@ -19,13 +19,13 @@ const anim = keyframes`
 const grid = (props: LoaderStylesProps) => {
   const { size } = props
 
-  const color = props.baseColor ?? colors.theme[props.type]
-  const speed = props.speed ?? DEFAULT_SPEED
+  const color = props.baseColor || colors.theme[props.type]
+  const speed = props.speed || DEFAULT_SPEED
   const itemCount = 3
   const spaceCount = itemCount + 1
 
   // size the dots based roughly on the wrapper size
-  const itemSize = props.innerSize ?? Math.round(size * DEFAULT_ITEM_SIZE_MULT)
+  const itemSize = props.innerSize || Math.round(size * DEFAULT_ITEM_SIZE_MULT)
 
   const combinedItemsSize = itemSize * itemCount
   const spacer = Math.floor((size - combinedItemsSize) / spaceCount)

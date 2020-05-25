@@ -1,42 +1,41 @@
 import * as React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from '@reach/router'
 
 import { BookCard } from 'components/books/components'
-import {
-  fetchBooks,
-  getBooks,
-  getBooksRequestPending,
-} from 'components/books/store'
-import { Loader } from 'packages/velcrostrip'
-import { useInitialRender } from 'utils'
+import { Button, Loader } from 'packages/velcrostrip'
+import { useBooksList } from './useBooksList'
 
 export type BooksListProps = {} & RouteComponentProps
 
 export const BooksList: React.FC<BooksListProps> = React.memo(() => {
-  const { isInitialRender } = useInitialRender()
-
-  const dispatch = useDispatch()
-  const books = useSelector(getBooks)
-  const loading = useSelector(getBooksRequestPending) || isInitialRender
-
-  const refetchBooks = React.useCallback(() => {
-    dispatch(fetchBooks())
-  }, [dispatch])
-
-  React.useEffect(() => {
-    refetchBooks()
-  }, [refetchBooks])
+  const {
+    books,
+    handleAddBookClick,
+    handleBookClick,
+    loading,
+    styles,
+  } = useBooksList()
 
   return (
-    <>
-      <div>Hello, BooksList!</div>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <h2 className={styles.headerTitle}>My Books</h2>
+        <Button disabled={loading} onClick={handleAddBookClick}>
+          Add a Book
+        </Button>
+      </div>
 
       {loading ? (
-        <Loader size={56} />
+        <Loader overlay={true} size={56} />
       ) : (
-        books.map((book) => <BookCard book={book} key={book.id} />)
+        books.map((book) => (
+          <BookCard
+            book={book}
+            key={book.id}
+            onClick={() => handleBookClick(book.id)}
+          />
+        ))
       )}
-    </>
+    </div>
   )
 })

@@ -1,0 +1,15 @@
+projects:
+  booklyeriest:
+    schemaPath: src/_aws-graphql/schema.json
+    includes:
+      - src/_aws-graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/_aws-graphql
+extensions:
+  amplify:
+    version: 3

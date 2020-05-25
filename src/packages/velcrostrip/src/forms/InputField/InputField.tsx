@@ -33,7 +33,7 @@ export const InputField: React.ForwardRefExoticComponent<InputFieldProps> = Reac
     ref?: React.Ref<HTMLInputElement>,
   ) => {
     // If a forward-ref is passed in, use that for our input ref; otherwise, just make a new one
-    const inputElRef = ref ?? React.useRef<HTMLInputElement>(null)
+    const inputElRef = ref || React.useRef<HTMLInputElement>(null)
 
     const styles = React.useMemo(() => getStyles(), [])
 

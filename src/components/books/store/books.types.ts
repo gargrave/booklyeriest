@@ -1,23 +1,28 @@
+import { Author } from 'components/authors/store'
 import { GenericResource, KeyObjectMap, ThunkAction } from 'store/store.types'
 
-export type BooksState = {
-  data: KeyObjectMap<ReduxBook>
-  requestPending: boolean
+/**************************************************
+ * Books Basic Types
+ **************************************************/
+export const bookAttrNames = ['author', 'title']
+
+export type BookRelationships = {
+  author: Author
 }
-
-export type BooksAction = ThunkAction<ReduxBook>
-
-export const bookAttrNames = ['title']
 
 export type BookAttrs = {
   title: string
 }
 
-export type BookRelations = {
-  relations: {
-    author: string
-  }
+export type Book = {} & GenericResource & BookAttrs & BookRelationships
+
+/**************************************************
+ * Books Redux Types
+ **************************************************/
+export type BooksState = {
+  data: KeyObjectMap<Book>
+  requestPending: boolean
 }
 
-export type Book = {} & GenericResource & BookAttrs
-export type ReduxBook = Book & BookRelations
+export type ListBooksAction = ThunkAction<Book[]>
+export type MutateBookAction = ThunkAction<Book>

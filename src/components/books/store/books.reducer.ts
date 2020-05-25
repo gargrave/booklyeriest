@@ -1,17 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { AuthorsAction, deleteAuthor } from 'components/authors/store'
-import { getMetaId, getValuesFromAction } from 'store/store.utils'
-import { fetchBooks } from './books.actions'
-import { BooksAction, ReduxBook } from './books.types'
-
-const getBookMap = getValuesFromAction<ReduxBook>('book')
-
-const getBooksList = (action: BooksAction): ReduxBook[] =>
-  Object.values(getBookMap(action)) || []
-
-const getFirstBook = (action: BooksAction): ReduxBook | undefined =>
-  getBooksList(action)[0]
+import { deleteAuthor, DeleteAuthorAction } from 'components/authors/store'
+import { deleteBook, fetchBooks, updateBook } from './books.actions'
+import { MutateBookAction, ListBooksAction } from './books.types'
 
 const booksSlice = createSlice({
   name: 'books',
@@ -31,27 +22,76 @@ const booksSlice = createSlice({
       state.data = action.payload.book || {}
     },
 
+    [fetchBooks.pending.toString()]: (state) => {
+      state.requestPending = true
+    },
+
+    [fetchBooks.fulfilled.toString()]: (state, action: ListBooksAction) => {
+      const books = action.payload
+      books.forEach((book) => {
+        state.data[book.id] = book
+      })
+      state.requestPending = false
+    },
+
+    [fetchBooks.rejected.toString()]: (state, action: ListBooksAction) => {
+      // eslint-disable-next-line no-console
+      console.error(action)
+      state.requestPending = false
+    },
+
+    /**************************************************
+     * Update Book
+     **************************************************/
+    [updateBook.pending.toString()]: (state) => {
+      state.requestPending = true
+    },
+
+    [updateBook.fulfilled.toString()]: (state, action: MutateBookAction) => {
+      const book = action.payload
+      state.data[book.id] = book
+      state.requestPending = false
+    },
+
+    [updateBook.rejected.toString()]: (state, action: MutateBookAction) => {
+      // eslint-disable-next-line no-console
+      console.error(action)
+      state.requestPending = false
+    },
+
+    /**************************************************
+     * Delete Book
+     **************************************************/
+    [deleteBook.pending.toString()]: (state) => {
+      state.requestPending = true
+    },
+
+    [deleteBook.fulfilled.toString()]: (state, action: MutateBookAction) => {
+      const { id } = action.payload
+
+      delete state.data[id]
+      state.requestPending = false
+    },
+
+    [deleteBook.rejected.toString()]: (state, action: MutateBookAction) => {
+      // eslint-disable-next-line no-console
+      console.error(action)
+      state.requestPending = false
+    },
+
     /**************************************************
      * Delete Author
+     * (Cascade author deletion -> remove books)
      **************************************************/
-    [deleteAuthor.fulfilled.toString()]: (state, action: AuthorsAction) => {
-      state.requestPending = false
-
-      const authorId = getMetaId(action)
-      if (!authorId) return
-
-      // when an author is deleted, we need to remove that author's existing books from our store
-      const prevBooks: ReduxBook[] = Object.values(state.data) || []
-      const authorBookIds: string[] = prevBooks.reduce((acc, book) => {
-        if (book.relations.author === authorId) {
-          acc.push(book.id)
-        }
-        return acc
-      }, [] as string[])
-
-      authorBookIds.forEach((id) => {
+    [deleteAuthor.fulfilled.toString()]: (
+      state,
+      action: DeleteAuthorAction,
+    ) => {
+      const bookIds = (action.payload?.books.items || []).map((book) => book.id)
+      bookIds.forEach((id) => {
         delete state.data[id]
       })
+      state.requestPending = false
     },
   },
 })
