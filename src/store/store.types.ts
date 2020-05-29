@@ -1,5 +1,5 @@
-import { AuthorsState } from 'components/authors/store'
-import { BooksState } from 'components/books/store'
+import { AuthorsState } from 'app/authors/store'
+import { BooksState } from 'app/books/store'
 
 export type AppState = {
   authors: AuthorsState

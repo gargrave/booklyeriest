@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { produce } from 'immer'
 import * as yup from 'yup'
-import * as R from 'ramda'
+import isEqual from 'lodash/fp/isEqual'
 
 type UseFormStateProps<T> = {
   initialState: T
@@ -51,7 +51,7 @@ export function useFormState<T>({
   React.useEffect(() => {
     const asyncValidate = async () => {
       const newStateIsValid = await schema.isValid(formState)
-      const newStateHasChanged = !R.equals(formState, original.current)
+      const newStateHasChanged = !isEqual(formState, original.current)
       setValid(newStateIsValid && newStateHasChanged)
     }
     asyncValidate()

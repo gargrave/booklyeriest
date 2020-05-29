@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Amplify from 'aws-amplify'
 
-import { App } from 'components/core/containers/App'
+import { App } from 'app/core/containers'
 import awsConfig from './aws-exports'
-
 import * as serviceWorker from './serviceWorker'
 
+import '@gargrave/react-simple-select/dist/react-simple-select.css'
 import 'styles/normalize.css'
 import 'styles/reset.css'
 import './index.css'

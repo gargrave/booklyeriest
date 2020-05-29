@@ -8,6 +8,16 @@ export type LoggingContext = {
   msg?: string
 }
 
+export const logInfo = (ctx: LoggingContext) => {
+  if (isDev) {
+    const { data, fn, msg = '(No message provided)' } = ctx
+    console.info(`${fn} :: ${msg}`)
+    if (data) {
+      console.log(data)
+    }
+  }
+}
+
 export const logWarning = (ctx: LoggingContext) => {
   if (isDev) {
     const { data, fn, msg = '(No message provided)' } = ctx
