@@ -8,14 +8,20 @@ const bookName = css`
   font-weight: 500;
 `
 
-const authorName = css`
+const subText = css`
   color: #666;
+`
+
+const sortBy = css`
+  ${subText};
+  font-size: 0.9rem;
 `
 
 export default () => {
   return {
-    authorName,
     bookCard,
     bookName,
+    sortBy,
+    subText,
   }
 }

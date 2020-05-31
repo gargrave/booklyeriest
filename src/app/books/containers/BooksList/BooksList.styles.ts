@@ -1,8 +1,9 @@
 import { css } from 'emotion'
 
+import { listViewWrapper } from 'styles'
+
 const wrapper = () => css`
-  min-height: 256px;
-  position: relative;
+  ${listViewWrapper()};
 `
 
 const header = () => css`

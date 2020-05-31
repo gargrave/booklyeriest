@@ -6,6 +6,12 @@ export const centeredFlex = css`
   justify-content: center;
 `
 
+export const listViewWrapper = () => css`
+  min-height: 256px;
+  padding-bottom: 32px;
+  position: relative;
+`
+
 export const crudForm = css`
   position: relative;
 `

@@ -8,6 +8,7 @@ type Author @model {
 type Book @model @key(name: "byAuthor", fields: ["authorID"]) {
   id: ID!
   title: String!
+  sortBy: String
   authorID: ID!
   author: Author @connection(fields: ["authorID"])
 }

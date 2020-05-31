@@ -1,5 +1,6 @@
 import { css } from 'emotion'
 
+import { inputWrapper } from 'packages/velcrostrip'
 import { crudForm, formButtons } from 'styles'
 
 const bookForm = css`
@@ -15,5 +16,6 @@ export default () => {
   return {
     bookForm,
     buttons,
+    inputWrapper: inputWrapper(),
   }
 }

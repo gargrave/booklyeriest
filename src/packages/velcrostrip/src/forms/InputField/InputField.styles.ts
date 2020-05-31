@@ -1,12 +1,12 @@
 import { css } from 'emotion'
 
+import { inputWrapper } from '../../styles'
+
 const BORDER_COLOR = '#ced4da'
 const DISABLED_BG_COLOR = '#e6e8ea'
 
 const wrapper = () => css`
-  display: flex;
-  flex-flow: column;
-  margin-bottom: 1.25rem;
+  ${inputWrapper()};
 `
 
 const label = () => css`

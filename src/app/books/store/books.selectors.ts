@@ -11,12 +11,16 @@ import { hydrateBook } from './books.utils'
  * Functional Helpers
  **************************************************/
 const authorLastName = fp.property('author.lastName')
+const sortableString = fp.replace(/(a|an|the)\s/gi, '')
+
+const bookSorter = (book: Book): string =>
+  book.sortBy || sortableString(book.title)
 
 const groupBooksByAuthor = (hydrator) =>
   fp.pipe(
     fp.map(hydrator),
     fp.filter(isTruthy),
-    fp.sortBy('title'),
+    fp.sortBy(bookSorter),
     fp.groupBy(authorLastName),
   )
 

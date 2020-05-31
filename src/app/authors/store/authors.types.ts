@@ -9,29 +9,17 @@ import { Book } from 'app/books/store'
 /**************************************************
  * Authors Basic Types
  **************************************************/
-enum AuthorField {
-  books = 'books',
-  firstName = 'firstName',
-  lastName = 'lastName',
-}
+export const authorFormFields = Object.freeze(['firstName', 'lastName'])
 
-export const authorFormFields = Object.freeze([
-  AuthorField.firstName,
-  AuthorField.lastName,
-])
-
-export const authorQueryFields = [
-  AuthorField.firstName,
-  AuthorField.lastName,
-].join(' ')
+export const authorQueryFields = ['firstName', 'lastName'].join(' ')
 
 type AuthorFields = {
-  [AuthorField.firstName]: string
-  [AuthorField.lastName]: string
+  firstName: string
+  lastName: string
 }
 
 type AuthorRelationships = {
-  [AuthorField.books]: HasMany<Book>
+  books: HasMany<Book>
 }
 
 export type Author = GenericResource & AuthorFields

@@ -12,6 +12,7 @@ export const getAuthor = /* GraphQL */ `
         items {
           id
           title
+          sortBy
           authorID
           createdAt
           updatedAt
@@ -23,7 +24,6 @@ export const getAuthor = /* GraphQL */ `
     }
   }
 `
-
 export const listAuthors = /* GraphQL */ `
   query ListAuthors(
     $filter: ModelAuthorFilterInput
@@ -50,6 +50,7 @@ export const getBook = /* GraphQL */ `
     getBook(id: $id) {
       id
       title
+      sortBy
       authorID
       author {
         id
@@ -76,6 +77,7 @@ export const listBooks = /* GraphQL */ `
       items {
         id
         title
+        sortBy
         authorID
         author {
           id

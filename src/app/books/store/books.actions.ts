@@ -17,6 +17,7 @@ export const createBook = createAsyncThunk(
   async (payload: Book) => {
     const mutation = queries.createBook({
       input: {
+        sortBy: payload.sortBy || '',
         title: payload.title,
         authorID: payload.author.id,
       },
@@ -31,6 +32,7 @@ export const updateBook = createAsyncThunk(
     const mutation = queries.updateBook({
       input: {
         id: payload.id,
+        sortBy: payload.sortBy || '',
         title: payload.title,
         authorID: payload.author.id,
       },

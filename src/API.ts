@@ -68,11 +68,13 @@ export type DeleteAuthorInput = {
 export type CreateBookInput = {
   id?: string | null
   title: string
+  sortBy?: string | null
   authorID: string
 }
 
 export type ModelBookConditionInput = {
   title?: ModelStringInput | null
+  sortBy?: ModelStringInput | null
   authorID?: ModelIDInput | null
   and?: Array<ModelBookConditionInput | null> | null
   or?: Array<ModelBookConditionInput | null> | null
@@ -98,6 +100,7 @@ export type ModelIDInput = {
 export type UpdateBookInput = {
   id: string
   title?: string | null
+  sortBy?: string | null
   authorID?: string | null
 }
 
@@ -117,6 +120,7 @@ export type ModelAuthorFilterInput = {
 export type ModelBookFilterInput = {
   id?: ModelIDInput | null
   title?: ModelStringInput | null
+  sortBy?: ModelStringInput | null
   authorID?: ModelIDInput | null
   and?: Array<ModelBookFilterInput | null> | null
   or?: Array<ModelBookFilterInput | null> | null
@@ -140,6 +144,7 @@ export type CreateAuthorMutation = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -168,6 +173,7 @@ export type UpdateAuthorMutation = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -196,6 +202,7 @@ export type DeleteAuthorMutation = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -217,6 +224,7 @@ export type CreateBookMutation = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'
@@ -245,6 +253,7 @@ export type UpdateBookMutation = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'
@@ -273,6 +282,7 @@ export type DeleteBookMutation = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'
@@ -307,6 +317,7 @@ export type GetAuthorQuery = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -352,6 +363,7 @@ export type GetBookQuery = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'
@@ -383,6 +395,7 @@ export type ListBooksQuery = {
       __typename: 'Book'
       id: string
       title: string
+      sortBy: string | null
       authorID: string
       author: {
         __typename: 'Author'
@@ -411,6 +424,7 @@ export type OnCreateAuthorSubscription = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -434,6 +448,7 @@ export type OnUpdateAuthorSubscription = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -457,6 +472,7 @@ export type OnDeleteAuthorSubscription = {
         __typename: 'Book'
         id: string
         title: string
+        sortBy: string | null
         authorID: string
         createdAt: string
         updatedAt: string
@@ -473,6 +489,7 @@ export type OnCreateBookSubscription = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'
@@ -496,6 +513,7 @@ export type OnUpdateBookSubscription = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'
@@ -519,6 +537,7 @@ export type OnDeleteBookSubscription = {
     __typename: 'Book'
     id: string
     title: string
+    sortBy: string | null
     authorID: string
     author: {
       __typename: 'Author'

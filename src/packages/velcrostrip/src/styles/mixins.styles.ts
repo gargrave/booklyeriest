@@ -6,6 +6,12 @@ export const centeredFlex = css`
   justify-content: center;
 `
 
+export const inputWrapper = () => css`
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 1.25rem;
+`
+
 export const pinnedAbsolute = css`
   height: 100%;
   left: 0;

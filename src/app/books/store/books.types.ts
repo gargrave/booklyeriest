@@ -4,21 +4,17 @@ import { GenericResource, KeyObjectMap, ThunkAction } from 'store/store.types'
 /**************************************************
  * Books Basic Types
  **************************************************/
-enum BookField {
-  author = 'author',
-  title = 'title',
-}
+export const bookFormFields = Object.freeze(['author', 'sortBy', 'title'])
 
-export const bookFormFields = Object.freeze([BookField.author, BookField.title])
-
-export const bookQueryFields = [BookField.title].join(' ')
+export const bookQueryFields = ['sortBy', 'title'].join(' ')
 
 type BookFields = {
-  [BookField.title]: string
+  sortBy?: string
+  title: string
 }
 
 type BookRelationships = {
-  [BookField.author]: Author
+  author: Author
 }
 
 export type Book = GenericResource & BookFields & BookRelationships

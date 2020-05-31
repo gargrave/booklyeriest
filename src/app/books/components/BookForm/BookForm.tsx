@@ -37,14 +37,25 @@ export const BookForm: React.FC<BookFormProps> = React.memo((props) => {
         value={formState.title}
       />
 
-      {/* BUG: this selection is not sticking when using enter/tab, it seems? */}
-      <Select
-        getOptionKey={(author) => author.id}
-        getOptionLabel={authorFullName}
-        label="Author"
-        onChange={handleAuthorChange}
-        options={authors}
-        value={formState.author}
+      <div className={styles.inputWrapper}>
+        {/* BUG: this selection is not sticking when using enter/tab, it seems? */}
+        <Select
+          getOptionKey={(author) => author.id}
+          getOptionLabel={authorFullName}
+          label="Author"
+          onChange={handleAuthorChange}
+          options={authors}
+          value={formState.author}
+        />
+      </div>
+
+      <InputField
+        disabled={loading}
+        id="sortBy"
+        label="Sort by"
+        onChange={handleInputChange}
+        placeholder={formState.title}
+        value={formState.sortBy || ''}
       />
 
       <div className={styles.buttons}>

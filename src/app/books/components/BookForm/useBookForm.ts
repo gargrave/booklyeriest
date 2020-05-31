@@ -14,10 +14,15 @@ import getStyles from './BookForm.styles'
 
 const schema = yup.object().shape({
   author: AuthorSchema.required(),
+  sortBy: yup
+    .string()
+    .notRequired()
+    .trim()
+    .max(256),
   title: yup
     .string()
-    .trim()
     .required()
+    .trim()
     .min(1)
     .max(256),
 })
@@ -26,6 +31,7 @@ type BookFormState = yup.InferType<typeof schema>
 
 const initialState: BookFormState = {
   author: undefined as never,
+  sortBy: '',
   title: '',
 }
 

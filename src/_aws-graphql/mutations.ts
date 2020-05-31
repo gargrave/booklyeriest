@@ -15,6 +15,7 @@ export const createAuthor = /* GraphQL */ `
         items {
           id
           title
+          sortBy
           authorID
           createdAt
           updatedAt
@@ -39,6 +40,7 @@ export const updateAuthor = /* GraphQL */ `
         items {
           id
           title
+          sortBy
           authorID
           createdAt
           updatedAt
@@ -63,6 +65,7 @@ export const deleteAuthor = /* GraphQL */ `
         items {
           id
           title
+          sortBy
           authorID
           createdAt
           updatedAt
@@ -82,6 +85,7 @@ export const createBook = /* GraphQL */ `
     createBook(input: $input, condition: $condition) {
       id
       title
+      sortBy
       authorID
       author {
         id
@@ -106,6 +110,7 @@ export const updateBook = /* GraphQL */ `
     updateBook(input: $input, condition: $condition) {
       id
       title
+      sortBy
       authorID
       author {
         id
@@ -130,6 +135,7 @@ export const deleteBook = /* GraphQL */ `
     deleteBook(input: $input, condition: $condition) {
       id
       title
+      sortBy
       authorID
       author {
         id
