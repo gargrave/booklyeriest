@@ -25,6 +25,7 @@ const schema = yup.object().shape({
 export const AuthorSchema = schema
 
 type AuthorFormState = yup.InferType<typeof schema>
+
 const initialState: AuthorFormState = {
   firstName: '',
   lastName: '',
@@ -41,31 +42,17 @@ export const useAuthorForm = ({
 }: AuthorFormProps) => {
   const styles = React.useMemo(() => getStyles(), [])
 
-  const { formState, handleInputChange, valid } = useFormState<AuthorFormState>(
-    {
-      initialState: getInitialState(author),
-      loading,
-      onSubmit,
-      schema,
-    },
-  )
-
-  const [canSubmit, setCanSubmit] = React.useState(false)
-
-  const handleSubmit = React.useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-
-      if (canSubmit) {
-        onSubmit(formState)
-      }
-    },
-    [canSubmit, formState, onSubmit],
-  )
-
-  React.useEffect(() => {
-    setCanSubmit(valid && !loading)
-  }, [loading, valid])
+  const {
+    canSubmit,
+    formState,
+    handleInputChange,
+    handleSubmit,
+  } = useFormState<AuthorFormState>({
+    initialState: getInitialState(author),
+    loading,
+    onSubmit,
+    schema,
+  })
 
   return {
     canSubmit,

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
 
-import { AuthorCard } from 'app/authors/components'
+import { AuthorBucket } from 'app/authors/components'
 import { Button, Loader } from 'packages/velcrostrip'
 import { useAuthorsList } from './useAuthorsList'
 
@@ -15,6 +15,7 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
     loading,
     styles,
   } = useAuthorsList()
+  const sortedAuthorKeys = Object.keys(authors).sort()
 
   return (
     <div className={styles.wrapper}>
@@ -28,11 +29,12 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
       {loading ? (
         <Loader overlay={true} size={56} />
       ) : (
-        authors.map((author) => (
-          <AuthorCard
-            author={author}
-            key={author.id}
-            onClick={() => handleAuthorClick(author.id)}
+        sortedAuthorKeys.map((authorKey) => (
+          <AuthorBucket
+            authors={authors[authorKey]}
+            bucketKey={authorKey}
+            key={authorKey}
+            onAuthorClick={handleAuthorClick}
           />
         ))
       )}

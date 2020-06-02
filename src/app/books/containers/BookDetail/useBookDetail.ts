@@ -3,7 +3,8 @@ import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { deleteBook, getBookById, updateBook } from 'app/books/store'
-import { AppState } from 'store'
+import { AppState } from 'store/store.types'
+import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 import { BookDetailProps } from './BookDetail'
 
@@ -13,6 +14,7 @@ export const useBookDetail = ({ bookId, navigate }: BookDetailProps) => {
   const dispatch = useDispatch()
   const book = useSelector((state: AppState) => getBookById(state, bookId))
 
+  const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)
 
   const styles = React.useMemo(() => getStyles(), [])
@@ -27,8 +29,11 @@ export const useBookDetail = ({ bookId, navigate }: BookDetailProps) => {
       try {
         await dispatch(
           updateBook({
-            id: bookId,
-            ...payload,
+            book: {
+              ...book,
+              ...payload,
+            },
+            userId,
           }),
         )
       } catch (err) {
@@ -38,22 +43,22 @@ export const useBookDetail = ({ bookId, navigate }: BookDetailProps) => {
         goToListPage()
       }
     },
-    [bookId, dispatch, goToListPage],
+    [book, dispatch, goToListPage, userId],
   )
 
   const handleDelete = React.useCallback(async () => {
-    if (!bookId) return
+    if (!book) return
 
     setLoading(true)
     try {
-      await dispatch(deleteBook(bookId))
+      await dispatch(deleteBook({ book, userId }))
     } catch (err) {
       logError({ fn: 'deleteBook' }, err)
       throw err
     } finally {
       goToListPage()
     }
-  }, [bookId, dispatch, goToListPage])
+  }, [book, dispatch, goToListPage, userId])
 
   const handleCancel = React.useCallback(() => {
     goToListPage()

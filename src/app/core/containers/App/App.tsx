@@ -1,16 +1,15 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { Link, Redirect, Router } from '@reach/router'
-import { withAuthenticator } from '@aws-amplify/ui-react'
 
-import { store } from 'store' // must be first import to ensure store is initialized
+import { store } from 'store/store' // must be first import to ensure store is initialized
 
 import { AuthorDetail, AuthorsList, CreateAuthor } from 'app/authors/containers'
 import { BookDetail, BooksList, CreateBook } from 'app/books/containers'
 import { Bootstrapper } from 'app/core/components'
 import { useApp } from './useApp'
 
-export const UnwrappedApp: React.FC = () => {
+export const App: React.FC = () => {
   const { styles } = useApp()
 
   return (
@@ -41,5 +40,3 @@ export const UnwrappedApp: React.FC = () => {
     </div>
   )
 }
-
-export const App = withAuthenticator(UnwrappedApp)

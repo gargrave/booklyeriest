@@ -6,11 +6,11 @@ import { useBookBucket } from './useBookBucket'
 
 export type BookBucketProps = {
   books: Book[]
-  handleBookClick: (bookId: string) => void
+  onBookClick: (bookId: string) => void
 }
 
 export const BookBucket: React.FC<BookBucketProps> = React.memo((props) => {
-  const { books, handleBookClick } = props
+  const { books, onBookClick } = props
   const { authorName, styles } = useBookBucket(props)
 
   return (
@@ -20,7 +20,7 @@ export const BookBucket: React.FC<BookBucketProps> = React.memo((props) => {
         <BookCard
           book={book}
           key={book.id}
-          onClick={() => handleBookClick(book.id)}
+          onClick={() => onBookClick(book.id)}
         />
       ))}
     </div>

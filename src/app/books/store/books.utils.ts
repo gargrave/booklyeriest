@@ -1,5 +1,5 @@
 import { Author } from 'app/authors/store'
-import { KeyObjectMap } from 'store'
+import { KeyObjectMap } from 'store/store.types'
 import { logWarning } from 'utils/logger'
 import { Book } from './books.types'
 

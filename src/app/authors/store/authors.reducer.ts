@@ -7,6 +7,8 @@ import {
   updateAuthor,
 } from './authors.actions'
 import {
+  AuthorsState,
+  CreateAuthorAction,
   DeleteAuthorAction,
   ListAuthorsAction,
   MutateAuthorAction,
@@ -26,19 +28,22 @@ const authorsSlice = createSlice({
     /**************************************************
      * Fetch Authors
      **************************************************/
-    [fetchAuthors.pending.toString()]: (state) => {
+    [fetchAuthors.pending.toString()]: (state: AuthorsState) => {
       state.requestPending = true
     },
 
-    [fetchAuthors.fulfilled.toString()]: (state, action: ListAuthorsAction) => {
-      const authors = action.payload
-      authors.forEach((author) => {
-        state.data[author.id] = author
-      })
+    [fetchAuthors.fulfilled.toString()]: (
+      state: AuthorsState,
+      action: ListAuthorsAction,
+    ) => {
+      state.data = action.payload
       state.requestPending = false
     },
 
-    [fetchAuthors.rejected.toString()]: (state, action: ListAuthorsAction) => {
+    [fetchAuthors.rejected.toString()]: (
+      state: AuthorsState,
+      action: ListAuthorsAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -47,20 +52,23 @@ const authorsSlice = createSlice({
     /**************************************************
      * Create Author
      **************************************************/
-    [createAuthor.pending.toString()]: (state) => {
+    [createAuthor.pending.toString()]: (state: AuthorsState) => {
       state.requestPending = true
     },
 
     [createAuthor.fulfilled.toString()]: (
-      state,
-      action: MutateAuthorAction,
+      state: AuthorsState,
+      action: CreateAuthorAction,
     ) => {
-      const author = action.payload
+      const author = Object.values(action.payload)[0]
       state.data[author.id] = author
       state.requestPending = false
     },
 
-    [createAuthor.rejected.toString()]: (state, action: MutateAuthorAction) => {
+    [createAuthor.rejected.toString()]: (
+      state: AuthorsState,
+      action: CreateAuthorAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -69,20 +77,23 @@ const authorsSlice = createSlice({
     /**************************************************
      * Update Author
      **************************************************/
-    [updateAuthor.pending.toString()]: (state) => {
+    [updateAuthor.pending.toString()]: (state: AuthorsState) => {
       state.requestPending = true
     },
 
     [updateAuthor.fulfilled.toString()]: (
-      state,
+      state: AuthorsState,
       action: MutateAuthorAction,
     ) => {
-      const author = action.payload
+      const author = Object.values(action.payload)[0]
       state.data[author.id] = author
       state.requestPending = false
     },
 
-    [updateAuthor.rejected.toString()]: (state, action: MutateAuthorAction) => {
+    [updateAuthor.rejected.toString()]: (
+      state: AuthorsState,
+      action: MutateAuthorAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -91,21 +102,23 @@ const authorsSlice = createSlice({
     /**************************************************
      * Delete Author
      **************************************************/
-    [deleteAuthor.pending.toString()]: (state) => {
+    [deleteAuthor.pending.toString()]: (state: AuthorsState) => {
       state.requestPending = true
     },
 
     [deleteAuthor.fulfilled.toString()]: (
-      state,
+      state: AuthorsState,
       action: DeleteAuthorAction,
     ) => {
-      const { id } = action.payload
-
+      const { id } = action.meta.arg.author
       delete state.data[id]
       state.requestPending = false
     },
 
-    [deleteAuthor.rejected.toString()]: (state, action: DeleteAuthorAction) => {
+    [deleteAuthor.rejected.toString()]: (
+      state: AuthorsState,
+      action: DeleteAuthorAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false

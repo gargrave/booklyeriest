@@ -4,11 +4,11 @@ import { Loader, LoaderShape } from 'packages/velcrostrip'
 import { useBootstrapper } from './useBootstrapper'
 
 export const Bootstrapper: React.FC = React.memo(({ children }) => {
-  const { loading } = useBootstrapper()
+  const { isFinished } = useBootstrapper()
 
-  return loading ? (
-    <Loader overlay={true} shape={LoaderShape.DualRing} size={56} />
-  ) : (
+  return isFinished ? (
     <>{children}</>
+  ) : (
+    <Loader overlay={true} shape={LoaderShape.DualRing} size={56} />
   )
 })

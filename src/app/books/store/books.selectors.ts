@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import * as fp from 'lodash/fp'
 
 import { Author } from 'app/authors/store'
-import { KeyObjectMap, AppState } from 'store'
+import { AppState, KeyObjectMap } from 'store/store.types'
 import { isTruthy } from 'utils/fp.utils'
 import { Book } from './books.types'
 import { hydrateBook } from './books.utils'
@@ -14,7 +14,7 @@ const authorLastName = fp.property('author.lastName')
 const sortableString = fp.replace(/(a|an|the)\s/gi, '')
 
 const bookSorter = (book: Book): string =>
-  book.sortBy || sortableString(book.title)
+  (book.sortBy || sortableString(book.title)).toLowerCase()
 
 const groupBooksByAuthor = (hydrator) =>
   fp.pipe(
@@ -34,6 +34,9 @@ const getAuthorsData = (state: AppState): KeyObjectMap<Author> =>
 
 const getId = (_state, id?: string): string | undefined => id
 
+/**************************************************
+ * Selectors
+ **************************************************/
 export const getBooks = createSelector(
   getBooksData,
   getAuthorsData,

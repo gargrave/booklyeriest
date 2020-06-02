@@ -1,51 +1,42 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { gql } from 'store'
+import { authorsService } from './authors.service'
 import { Author } from './authors.types'
-import * as queries from './authors.queries'
 
-const multiQuery = gql('authors')
-const singleQuery = gql('author')
+const TEMP_USER = process.env.BOOKLYER_FIREBASE_TEMP_USER || ''
+
+type AuthOptions = {
+  userId: string
+}
+
+type AuthorActionOptions = AuthOptions & {
+  author: Author
+}
 
 export const fetchAuthors = createAsyncThunk(
   'authors/fetchAuthors',
-  async () => {
-    const query = queries.listAuthors()
-    return await multiQuery(query)
+  async ({ userId }: AuthOptions) => {
+    return await authorsService.fetchAuthorsByOwner(userId || TEMP_USER)
   },
 )
 
 export const createAuthor = createAsyncThunk(
   'authors/createAuthor',
-  async (payload: Author) => {
-    const mutation = queries.createAuthor({
-      input: {
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-      },
-    })
-    return await singleQuery(mutation)
+  async ({ author, userId }: AuthorActionOptions) => {
+    return await authorsService.createAuthor(userId || TEMP_USER, author)
   },
 )
 
 export const updateAuthor = createAsyncThunk(
   'authors/updateAuthor',
-  async (payload: Author) => {
-    const mutation = queries.updateAuthor({
-      input: {
-        id: payload.id,
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-      },
-    })
-    return await singleQuery(mutation)
+  async ({ author, userId }: AuthorActionOptions) => {
+    return await authorsService.updateAuthor(userId || TEMP_USER, author)
   },
 )
 
 export const deleteAuthor = createAsyncThunk(
   'authors/deleteAuthor',
-  async (id: string) => {
-    const mutation = queries.deleteAuthor({ input: { id } })
-    return await singleQuery(mutation)
+  async ({ author, userId }: AuthorActionOptions) => {
+    return await authorsService.deleteAuthor(userId || TEMP_USER, author)
   },
 )

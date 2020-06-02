@@ -1,17 +1,17 @@
-import { AuthorsState } from 'app/authors/store'
-import { BooksState } from 'app/books/store'
+import { AuthState } from 'app/auth/store/auth.types'
+import { AuthorsState } from 'app/authors/store/authors.types'
+import { BooksState } from 'app/books/store/books.types'
 
 export type AppState = {
+  auth: AuthState
   authors: AuthorsState
   books: BooksState
 }
 
 export type GenericResource = {
   id: string
-}
-
-export type HasMany<T> = {
-  items: T[]
+  created: Date
+  updated: Date
 }
 
 export type KeyObjectMap<T> = {
@@ -19,5 +19,6 @@ export type KeyObjectMap<T> = {
 }
 
 export type ThunkAction<T> = {
-  payload: T
+  payload: KeyObjectMap<T>
+  type: string
 }

@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { deleteAuthor, DeleteAuthorAction } from 'app/authors/store'
 import { createBook, deleteBook, fetchBooks, updateBook } from './books.actions'
-import { MutateBookAction, ListBooksAction } from './books.types'
+import {
+  BooksState,
+  CreateBookAction,
+  DeleteBookAction,
+  ListBooksAction,
+  MutateBookAction,
+} from './books.types'
 
 const booksSlice = createSlice({
   name: 'books',
@@ -18,23 +24,22 @@ const booksSlice = createSlice({
     /**************************************************
      * Fetch Books
      **************************************************/
-    [fetchBooks.fulfilled.toString()]: (state, action) => {
-      state.data = action.payload.book || {}
-    },
-
-    [fetchBooks.pending.toString()]: (state) => {
+    [fetchBooks.pending.toString()]: (state: BooksState) => {
       state.requestPending = true
     },
 
-    [fetchBooks.fulfilled.toString()]: (state, action: ListBooksAction) => {
-      const books = action.payload
-      books.forEach((book) => {
-        state.data[book.id] = book
-      })
+    [fetchBooks.fulfilled.toString()]: (
+      state: BooksState,
+      action: ListBooksAction,
+    ) => {
+      state.data = action.payload || {}
       state.requestPending = false
     },
 
-    [fetchBooks.rejected.toString()]: (state, action: ListBooksAction) => {
+    [fetchBooks.rejected.toString()]: (
+      state: BooksState,
+      action: ListBooksAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -43,17 +48,23 @@ const booksSlice = createSlice({
     /**************************************************
      * Create Book
      **************************************************/
-    [createBook.pending.toString()]: (state) => {
+    [createBook.pending.toString()]: (state: BooksState) => {
       state.requestPending = true
     },
 
-    [createBook.fulfilled.toString()]: (state, action: MutateBookAction) => {
-      const book = action.payload
+    [createBook.fulfilled.toString()]: (
+      state: BooksState,
+      action: CreateBookAction,
+    ) => {
+      const book = Object.values(action.payload)[0]
       state.data[book.id] = book
       state.requestPending = false
     },
 
-    [createBook.rejected.toString()]: (state, action: MutateBookAction) => {
+    [createBook.rejected.toString()]: (
+      state: BooksState,
+      action: CreateBookAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -62,17 +73,23 @@ const booksSlice = createSlice({
     /**************************************************
      * Update Book
      **************************************************/
-    [updateBook.pending.toString()]: (state) => {
+    [updateBook.pending.toString()]: (state: BooksState) => {
       state.requestPending = true
     },
 
-    [updateBook.fulfilled.toString()]: (state, action: MutateBookAction) => {
-      const book = action.payload
+    [updateBook.fulfilled.toString()]: (
+      state: BooksState,
+      action: MutateBookAction,
+    ) => {
+      const book = Object.values(action.payload)[0]
       state.data[book.id] = book
       state.requestPending = false
     },
 
-    [updateBook.rejected.toString()]: (state, action: MutateBookAction) => {
+    [updateBook.rejected.toString()]: (
+      state: BooksState,
+      action: MutateBookAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -81,18 +98,23 @@ const booksSlice = createSlice({
     /**************************************************
      * Delete Book
      **************************************************/
-    [deleteBook.pending.toString()]: (state) => {
+    [deleteBook.pending.toString()]: (state: BooksState) => {
       state.requestPending = true
     },
 
-    [deleteBook.fulfilled.toString()]: (state, action: MutateBookAction) => {
-      const { id } = action.payload
-
+    [deleteBook.fulfilled.toString()]: (
+      state: BooksState,
+      action: DeleteBookAction,
+    ) => {
+      const { id } = action.meta.arg.book
       delete state.data[id]
       state.requestPending = false
     },
 
-    [deleteBook.rejected.toString()]: (state, action: MutateBookAction) => {
+    [deleteBook.rejected.toString()]: (
+      state: BooksState,
+      action: DeleteBookAction,
+    ) => {
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
@@ -103,13 +125,21 @@ const booksSlice = createSlice({
      * (Cascade author deletion -> remove books)
      **************************************************/
     [deleteAuthor.fulfilled.toString()]: (
-      state,
+      state: BooksState,
       action: DeleteAuthorAction,
     ) => {
-      const bookIds = (action.payload?.books.items || []).map((book) => book.id)
+      const { id: authorId } = action.meta.arg.author
+      const bookIds = Object.values(state.data).reduce((acc, book) => {
+        if (book.author.id === authorId) {
+          acc.push(book.id)
+        }
+        return acc
+      }, [] as string[])
+
       bookIds.forEach((id) => {
         delete state.data[id]
       })
+
       state.requestPending = false
     },
   },

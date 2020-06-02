@@ -1,50 +1,42 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { gql } from 'store'
+import { booksService } from './books.service'
 import { Book } from './books.types'
-import * as queries from './books.queries'
 
-const listQuery = gql('books')
-const singleQuery = gql('book')
+const TEMP_USER = process.env.BOOKLYER_FIREBASE_TEMP_USER || ''
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
-  const query = queries.listBooks()
-  return await listQuery(query)
-})
+type AuthOptions = {
+  userId: string
+}
+
+type BookActionOptions = AuthOptions & {
+  book: Book
+}
+
+export const fetchBooks = createAsyncThunk(
+  'books/fetchBooks',
+  async ({ userId }: AuthOptions) => {
+    return await booksService.fetchBooksByOwner(userId || TEMP_USER)
+  },
+)
 
 export const createBook = createAsyncThunk(
   'books/createBook',
-  async (payload: Book) => {
-    const mutation = queries.createBook({
-      input: {
-        sortBy: payload.sortBy || '',
-        title: payload.title,
-        authorID: payload.author.id,
-      },
-    })
-    return await singleQuery(mutation)
+  async ({ book, userId }: BookActionOptions) => {
+    return await booksService.createBook(userId || TEMP_USER, book)
   },
 )
 
 export const updateBook = createAsyncThunk(
   'books/updateBook',
-  async (payload: Book) => {
-    const mutation = queries.updateBook({
-      input: {
-        id: payload.id,
-        sortBy: payload.sortBy || '',
-        title: payload.title,
-        authorID: payload.author.id,
-      },
-    })
-    return await singleQuery(mutation)
+  async ({ book, userId }: BookActionOptions) => {
+    return await booksService.updateBook(userId || TEMP_USER, book)
   },
 )
 
 export const deleteBook = createAsyncThunk(
   'books/deleteBook',
-  async (id: string) => {
-    const mutation = queries.deleteBook({ input: { id } })
-    return await singleQuery(mutation)
+  async ({ book, userId }: BookActionOptions) => {
+    return await booksService.deleteBook(userId || TEMP_USER, book)
   },
 )

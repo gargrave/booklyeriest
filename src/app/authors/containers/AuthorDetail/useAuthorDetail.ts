@@ -2,7 +2,13 @@ import * as React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { deleteAuthor, getAuthorById, updateAuthor } from 'app/authors/store'
+import {
+  AuthorFields,
+  deleteAuthor,
+  getAuthorById,
+  updateAuthor,
+} from 'app/authors/store'
+import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 import { AuthorDetailProps } from './AuthorDetail'
 
@@ -11,6 +17,8 @@ import getStyles from './AuthorDetail.styles'
 export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
   const dispatch = useDispatch()
   const author = useSelector((state) => getAuthorById(state, authorId))
+
+  const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)
 
   const styles = React.useMemo(() => getStyles(), [])
@@ -20,13 +28,18 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
   }, [navigate])
 
   const handleSubmit = React.useCallback(
-    async (payload) => {
+    async (payload: AuthorFields) => {
+      if (!author) return
+
       setLoading(true)
       try {
         await dispatch(
           updateAuthor({
-            id: authorId,
-            ...payload,
+            author: {
+              ...author,
+              ...payload,
+            },
+            userId,
           }),
         )
       } catch (err) {
@@ -36,22 +49,22 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
         goToListPage()
       }
     },
-    [authorId, dispatch, goToListPage],
+    [authorId, dispatch, goToListPage, userId],
   )
 
   const handleDelete = React.useCallback(async () => {
-    if (!authorId) return
+    if (!author) return
 
     setLoading(true)
     try {
-      await dispatch(deleteAuthor(authorId))
+      await dispatch(deleteAuthor({ author, userId }))
     } catch (err) {
       logError({ fn: 'deleteAuthor' }, err)
       throw err
     } finally {
       goToListPage()
     }
-  }, [authorId, dispatch, goToListPage])
+  }, [author, dispatch, goToListPage, userId])
 
   const handleCancel = React.useCallback(() => {
     goToListPage()

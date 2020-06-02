@@ -33,8 +33,8 @@ export const BooksList: React.FC<BooksListProps> = React.memo(() => {
           {sortedAuthorKeys.map((authorKey) => (
             <BookBucket
               books={books[authorKey]}
-              handleBookClick={handleBookClick}
               key={authorKey}
+              onBookClick={handleBookClick}
             />
           ))}
         </>
