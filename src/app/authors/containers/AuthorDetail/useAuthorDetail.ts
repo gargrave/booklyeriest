@@ -12,16 +12,12 @@ import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 import { AuthorDetailProps } from './AuthorDetail'
 
-import getStyles from './AuthorDetail.styles'
-
 export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
   const dispatch = useDispatch()
   const author = useSelector((state) => getAuthorById(state, authorId))
 
   const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)
-
-  const styles = React.useMemo(() => getStyles(), [])
 
   const goToListPage = React.useCallback(() => {
     navigate && navigate('/authors')
@@ -49,7 +45,7 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
         goToListPage()
       }
     },
-    [authorId, dispatch, goToListPage, userId],
+    [author, dispatch, goToListPage, userId],
   )
 
   const handleDelete = React.useCallback(async () => {
@@ -83,6 +79,5 @@ export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
     handleDelete,
     handleSubmit,
     loading,
-    styles,
   }
 }

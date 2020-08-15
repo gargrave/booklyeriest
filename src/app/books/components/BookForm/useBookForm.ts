@@ -10,8 +10,6 @@ import { Book, bookFormFields } from 'app/books/store'
 import { useFormState } from 'utils/hooks'
 import { BookFormProps } from './BookForm'
 
-import getStyles from './BookForm.styles'
-
 const schema = yup.object().shape({
   author: AuthorSchema.required(),
   sortBy: yup
@@ -40,7 +38,6 @@ const getInitialState = (book?: Book): BookFormState => {
 }
 
 export const useBookForm = ({ book, loading, onSubmit }: BookFormProps) => {
-  const styles = React.useMemo(() => getStyles(), [])
   const authors = useSelector(getAuthors)
 
   const {
@@ -75,7 +72,6 @@ export const useBookForm = ({ book, loading, onSubmit }: BookFormProps) => {
     handleAuthorChange,
     handleInputChange,
     handleSubmit,
-    styles,
     valid,
   }
 }

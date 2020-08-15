@@ -7,15 +7,11 @@ import {
   getBooksRequestPending,
 } from 'app/books/store'
 
-import getStyles from './BooksList.styles'
-
 export const useBooksList = () => {
   const navigate = useNavigate()
 
   const books = useSelector(getBooksGroupedByAuthor)
   const loading = useSelector(getBooksRequestPending)
-
-  const styles = React.useMemo(() => getStyles(), [])
 
   const handleBookClick = React.useCallback(
     (id: string) => {
@@ -33,6 +29,5 @@ export const useBooksList = () => {
     handleAddBookClick,
     handleBookClick,
     loading,
-    styles,
   }
 }

@@ -1,11 +1,21 @@
-import * as React from 'react'
 import { Select } from '@gargrave/react-simple-select'
+import * as React from 'react'
 
 import { authorFullName } from 'app/authors/store'
 import { Book } from 'app/books/store'
 import { Button, InputField, Loader, StyleTheme } from 'packages/velcrostrip'
-
+import {
+  FormButtonsContainer,
+  FormContainer,
+  FormInputWrapper,
+} from 'styles/components'
 import { useBookForm } from './useBookForm'
+
+const St = {
+  Buttons: FormButtonsContainer,
+  Form: FormContainer,
+  InputWrapper: FormInputWrapper,
+}
 
 export type BookFormProps = {
   book?: Book
@@ -23,11 +33,10 @@ export const BookForm: React.FC<BookFormProps> = React.memo((props) => {
     handleAuthorChange,
     handleInputChange,
     handleSubmit,
-    styles,
   } = useBookForm(props)
 
   return (
-    <form className={styles.bookForm} onSubmit={handleSubmit}>
+    <St.Form onSubmit={handleSubmit}>
       <InputField
         disabled={loading}
         id="title"
@@ -37,7 +46,7 @@ export const BookForm: React.FC<BookFormProps> = React.memo((props) => {
         value={formState.title}
       />
 
-      <div className={styles.inputWrapper}>
+      <St.InputWrapper>
         {/* BUG: this selection is not sticking when using enter/tab, it seems? */}
         <Select
           getOptionKey={(author) => author.id}
@@ -47,7 +56,7 @@ export const BookForm: React.FC<BookFormProps> = React.memo((props) => {
           options={authors}
           value={formState.author}
         />
-      </div>
+      </St.InputWrapper>
 
       <InputField
         disabled={loading}
@@ -58,7 +67,7 @@ export const BookForm: React.FC<BookFormProps> = React.memo((props) => {
         value={formState.sortBy || ''}
       />
 
-      <div className={styles.buttons}>
+      <St.Buttons>
         <Button
           disabled={loading}
           onClick={onCancel}
@@ -70,9 +79,9 @@ export const BookForm: React.FC<BookFormProps> = React.memo((props) => {
         <Button buttonType="submit" disabled={!canSubmit}>
           Submit
         </Button>
-      </div>
+      </St.Buttons>
 
       {loading && <Loader overlay={true} size={56} />}
-    </form>
+    </St.Form>
   )
 })

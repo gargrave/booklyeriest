@@ -6,16 +6,12 @@ import { createBook } from 'app/books/store'
 import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 
-import getStyles from './CreateBook.styles'
-
 export const useCreateBook = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)
-
-  const styles = React.useMemo(() => getStyles(), [])
 
   const goToListPage = React.useCallback(() => {
     navigate && navigate('/books')
@@ -43,6 +39,5 @@ export const useCreateBook = () => {
     handleCancel,
     handleSubmit,
     loading,
-    styles,
   }
 }

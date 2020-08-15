@@ -7,15 +7,11 @@ import {
   getAuthorsRequestPending,
 } from 'app/authors/store'
 
-import getStyles from './AuthorsList.styles'
-
 export const useAuthorsList = () => {
   const navigate = useNavigate()
 
   const authors = useSelector(getAuthorsGroupedByLastInitial)
   const loading = useSelector(getAuthorsRequestPending)
-
-  const styles = React.useMemo(() => getStyles(), [])
 
   const handleAuthorClick = React.useCallback(
     (id: string) => {
@@ -33,6 +29,5 @@ export const useAuthorsList = () => {
     handleAddAuthorClick,
     handleAuthorClick,
     loading,
-    styles,
   }
 }

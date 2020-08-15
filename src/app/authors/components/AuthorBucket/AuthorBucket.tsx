@@ -1,8 +1,13 @@
 import * as React from 'react'
 
 import { Author } from 'app/authors/store'
+import { ListViewBucketContainer, ListViewBucketKey } from 'styles/components'
 import { AuthorCard } from '../AuthorCard'
-import { useAuthorBucket } from './useAuthorBucket'
+
+const St = {
+  Bucket: ListViewBucketContainer,
+  Key: ListViewBucketKey,
+}
 
 export type AuthorBucketProps = {
   authors: Author[]
@@ -12,11 +17,10 @@ export type AuthorBucketProps = {
 
 export const AuthorBucket: React.FC<AuthorBucketProps> = React.memo((props) => {
   const { authors, bucketKey, onAuthorClick } = props
-  const { styles } = useAuthorBucket()
 
   return (
-    <div className={styles.authorBucket}>
-      <div className={styles.bucketKey}>{bucketKey}</div>
+    <St.Bucket>
+      <St.Key>{bucketKey}</St.Key>
       {authors.map((author) => (
         <AuthorCard
           author={author}
@@ -24,6 +28,6 @@ export const AuthorBucket: React.FC<AuthorBucketProps> = React.memo((props) => {
           onClick={() => onAuthorClick(author.id)}
         />
       ))}
-    </div>
+    </St.Bucket>
   )
 })

@@ -3,8 +3,13 @@ import { RouteComponentProps } from '@reach/router'
 
 import { BookForm } from 'app/books/components'
 import { Button, Card, StyleTheme } from 'packages/velcrostrip'
-
+import { FormTitle, PageHeaderContainer } from 'styles/components'
 import { useBookDetail } from './useBookDetail'
+
+const St = {
+  Header: PageHeaderContainer,
+  Title: FormTitle,
+}
 
 export type BookDetailProps = {
   bookId?: string
@@ -17,26 +22,23 @@ export const BookDetail: React.FC<BookDetailProps> = React.memo((props) => {
     handleDelete,
     handleSubmit,
     loading,
-    styles,
   } = useBookDetail(props)
 
   return (
-    <>
-      <div className={styles.header}>
-        <h2 className={styles.headerTitle}>Update a Book</h2>
+    <Card>
+      <St.Header>
+        <St.Title>Update a Book</St.Title>
         <Button onClick={handleDelete} type={StyleTheme.Danger}>
           Delete
         </Button>
-      </div>
+      </St.Header>
 
-      <Card>
-        <BookForm
-          book={book}
-          loading={loading}
-          onCancel={handleCancel}
-          onSubmit={handleSubmit}
-        />
-      </Card>
-    </>
+      <BookForm
+        book={book}
+        loading={loading}
+        onCancel={handleCancel}
+        onSubmit={handleSubmit}
+      />
+    </Card>
   )
 })

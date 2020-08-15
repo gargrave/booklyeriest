@@ -1,26 +1,40 @@
+import styled from '@emotion/styled'
+import { Link, Redirect, Router } from '@reach/router'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { Link, Redirect, Router } from '@reach/router'
 
 import { store } from 'store/store' // must be first import to ensure store is initialized
 
 import { AuthorDetail, AuthorsList, CreateAuthor } from 'app/authors/containers'
 import { BookDetail, BooksList, CreateBook } from 'app/books/containers'
+import { CenteredFlex } from 'styles/components'
 import { Bootstrapper } from 'app/core/components'
-import { useApp } from './useApp'
+
+const St = {
+  Main: styled.main`
+    margin: auto;
+    max-width: 800px;
+  `,
+  Nav: styled.nav`
+    ${CenteredFlex};
+  `,
+  NavContent: styled.div`
+    ${CenteredFlex};
+    flex-flow: row wrap;
+    max-width: 800px;
+  `,
+}
 
 export const App: React.FC = () => {
-  const { styles } = useApp()
-
   return (
     <div>
-      <nav className={styles.nav}>
-        <div className={styles.navContent}>
+      <St.Nav>
+        <St.NavContent>
           <Link to="books">Books</Link> | <Link to="authors">Authors</Link>
-        </div>
-      </nav>
+        </St.NavContent>
+      </St.Nav>
 
-      <main className={styles.pageWrapper}>
+      <St.Main>
         <Provider store={store}>
           <Bootstrapper>
             <Router>
@@ -36,7 +50,7 @@ export const App: React.FC = () => {
             </Router>
           </Bootstrapper>
         </Provider>
-      </main>
+      </St.Main>
     </div>
   )
 }

@@ -6,16 +6,12 @@ import { createAuthor } from 'app/authors/store'
 import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 
-import getStyles from './CreateAuthor.styles'
-
 export const useCreateAuthor = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)
-
-  const styles = React.useMemo(() => getStyles(), [])
 
   const goToListPage = React.useCallback(() => {
     navigate && navigate('/authors')
@@ -49,6 +45,5 @@ export const useCreateAuthor = () => {
     handleCancel,
     handleSubmit,
     loading,
-    styles,
   }
 }

@@ -8,16 +8,12 @@ import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 import { BookDetailProps } from './BookDetail'
 
-import getStyles from './BookDetail.styles'
-
 export const useBookDetail = ({ bookId, navigate }: BookDetailProps) => {
   const dispatch = useDispatch()
   const book = useSelector((state: AppState) => getBookById(state, bookId))
 
   const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)
-
-  const styles = React.useMemo(() => getStyles(), [])
 
   const goToListPage = React.useCallback(() => {
     navigate && navigate('/books')
@@ -77,6 +73,5 @@ export const useBookDetail = ({ bookId, navigate }: BookDetailProps) => {
     handleDelete,
     handleSubmit,
     loading,
-    styles,
   }
 }

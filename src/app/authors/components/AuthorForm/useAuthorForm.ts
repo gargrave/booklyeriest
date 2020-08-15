@@ -6,8 +6,6 @@ import { Author, authorFormFields } from 'app/authors/store'
 import { useFormState } from 'utils/hooks'
 import { AuthorFormProps } from './AuthorForm'
 
-import getStyles from './AuthorForm.styles'
-
 const schema = yup.object().shape({
   firstName: yup
     .string()
@@ -40,8 +38,6 @@ export const useAuthorForm = ({
   loading,
   onSubmit,
 }: AuthorFormProps) => {
-  const styles = React.useMemo(() => getStyles(), [])
-
   const {
     canSubmit,
     formState,
@@ -59,6 +55,5 @@ export const useAuthorForm = ({
     formState,
     handleInputChange,
     handleSubmit,
-    styles,
   }
 }

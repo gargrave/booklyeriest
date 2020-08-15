@@ -2,9 +2,15 @@ import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
 
 import { AuthorForm } from 'app/authors/components'
+import { FormTitle, PageHeaderContainer } from 'styles/components'
 import { Button, Card, StyleTheme } from 'packages/velcrostrip'
 
 import { useAuthorDetail } from './useAuthorDetail'
+
+const St = {
+  Header: PageHeaderContainer,
+  Title: FormTitle,
+}
 
 export type AuthorDetailProps = {
   authorId?: string
@@ -17,26 +23,23 @@ export const AuthorDetail: React.FC<AuthorDetailProps> = React.memo((props) => {
     handleDelete,
     handleSubmit,
     loading,
-    styles,
   } = useAuthorDetail(props)
 
   return (
-    <>
-      <div className={styles.header}>
-        <h2 className={styles.headerTitle}>Update an Author</h2>
+    <Card>
+      <St.Header>
+        <St.Title>Update an Author</St.Title>
         <Button onClick={handleDelete} type={StyleTheme.Danger}>
           Delete
         </Button>
-      </div>
+      </St.Header>
 
-      <Card>
-        <AuthorForm
-          author={author}
-          loading={loading}
-          onCancel={handleCancel}
-          onSubmit={handleSubmit}
-        />
-      </Card>
-    </>
+      <AuthorForm
+        author={author}
+        loading={loading}
+        onCancel={handleCancel}
+        onSubmit={handleSubmit}
+      />
+    </Card>
   )
 })

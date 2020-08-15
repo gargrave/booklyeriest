@@ -1,9 +1,13 @@
 import * as React from 'react'
-import { Card, CardProps } from 'packages/velcrostrip'
 
 import { Author } from 'app/authors/store'
+import { CardProps } from 'packages/velcrostrip'
+import { ListViewCard, ListViewCardTitle } from 'styles/components'
 
-import getStyles from './AuthorCard.styles'
+const St = {
+  Card: ListViewCard,
+  Title: ListViewCardTitle,
+}
 
 export type AuthorCardProps = {
   author: Author
@@ -11,14 +15,12 @@ export type AuthorCardProps = {
 
 export const AuthorCard: React.FC<AuthorCardProps> = React.memo(
   ({ author, onClick }) => {
-    const styles = React.useMemo(() => getStyles(), [])
-
     return (
-      <Card className={styles.authorCard} hoverable={true} onClick={onClick}>
-        <div className={styles.authorName}>
+      <St.Card hoverable={true} onClick={onClick}>
+        <St.Title>
           {author.firstName} {author.lastName}
-        </div>
-      </Card>
+        </St.Title>
+      </St.Card>
     )
   },
 )

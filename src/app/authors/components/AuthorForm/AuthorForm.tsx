@@ -2,7 +2,13 @@ import * as React from 'react'
 
 import { Author } from 'app/authors/store'
 import { Button, InputField, Loader, StyleTheme } from 'packages/velcrostrip'
+import { FormButtonsContainer, FormContainer } from 'styles/components'
 import { useAuthorForm } from './useAuthorForm'
+
+const St = {
+  Buttons: FormButtonsContainer,
+  Form: FormContainer,
+}
 
 export type AuthorFormProps = {
   author?: Author
@@ -18,11 +24,10 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
     formState,
     handleInputChange,
     handleSubmit,
-    styles,
   } = useAuthorForm(props)
 
   return (
-    <form className={styles.authorForm} onSubmit={handleSubmit}>
+    <St.Form onSubmit={handleSubmit}>
       <InputField
         disabled={loading}
         id="firstName"
@@ -41,7 +46,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
         value={formState.lastName}
       />
 
-      <div className={styles.buttons}>
+      <St.Buttons>
         <Button
           disabled={loading}
           onClick={onCancel}
@@ -53,9 +58,9 @@ export const AuthorForm: React.FC<AuthorFormProps> = React.memo((props) => {
         <Button buttonType="submit" disabled={!canSubmit}>
           Submit
         </Button>
-      </div>
+      </St.Buttons>
 
       {loading && <Loader overlay={true} size={56} />}
-    </form>
+    </St.Form>
   )
 })

@@ -3,7 +3,14 @@ import { RouteComponentProps } from '@reach/router'
 
 import { AuthorBucket } from 'app/authors/components'
 import { Button, Loader } from 'packages/velcrostrip'
+import { ListView, PageHeaderContainer, PageTitle } from 'styles/components'
 import { useAuthorsList } from './useAuthorsList'
+
+const St = {
+  Container: ListView,
+  Header: PageHeaderContainer,
+  Title: PageTitle,
+}
 
 export type AuthorsListProps = RouteComponentProps
 
@@ -13,18 +20,17 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
     handleAddAuthorClick,
     handleAuthorClick,
     loading,
-    styles,
   } = useAuthorsList()
   const sortedAuthorKeys = Object.keys(authors).sort()
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <h2 className={styles.headerTitle}>My Authors</h2>
+    <St.Container>
+      <St.Header>
+        <St.Title>My Authors</St.Title>
         <Button disabled={loading} onClick={handleAddAuthorClick}>
           Add an Author
         </Button>
-      </div>
+      </St.Header>
 
       {loading ? (
         <Loader overlay={true} size={56} />
@@ -38,6 +44,6 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
           />
         ))
       )}
-    </div>
+    </St.Container>
   )
 })

@@ -3,28 +3,29 @@ import { RouteComponentProps } from '@reach/router'
 
 import { BookBucket } from 'app/books/components'
 import { Button, Loader } from 'packages/velcrostrip'
+import { ListView, PageHeaderContainer, PageTitle } from 'styles/components'
 import { useBooksList } from './useBooksList'
+
+const St = {
+  Container: ListView,
+  Header: PageHeaderContainer,
+  Title: PageTitle,
+}
 
 export type BooksListProps = {} & RouteComponentProps
 
 export const BooksList: React.FC<BooksListProps> = React.memo(() => {
-  const {
-    books,
-    handleAddBookClick,
-    handleBookClick,
-    loading,
-    styles,
-  } = useBooksList()
+  const { books, handleAddBookClick, handleBookClick, loading } = useBooksList()
   const sortedAuthorKeys = Object.keys(books).sort()
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <h2 className={styles.headerTitle}>My Books</h2>
+    <St.Container>
+      <St.Header>
+        <St.Title>My Books</St.Title>
         <Button disabled={loading} onClick={handleAddBookClick}>
           Add a Book
         </Button>
-      </div>
+      </St.Header>
 
       {loading ? (
         <Loader overlay={true} size={56} />
@@ -39,6 +40,6 @@ export const BooksList: React.FC<BooksListProps> = React.memo(() => {
           ))}
         </>
       )}
-    </div>
+    </St.Container>
   )
 })

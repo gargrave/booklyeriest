@@ -1,8 +1,23 @@
+import styled from '@emotion/styled'
 import * as React from 'react'
 
 import { Book } from 'app/books/store'
-import { Card, CardProps } from 'packages/velcrostrip'
+import { CardProps } from 'packages/velcrostrip'
+import {
+  ListViewCard,
+  ListViewCardText,
+  ListViewCardTitle,
+} from 'styles/components'
 import { useBookCard } from './useBookCard'
+
+const St = {
+  Card: ListViewCard,
+  CardText: ListViewCardText,
+  SortByText: styled(ListViewCardText)`
+    font-size: 0.9rem;
+  `,
+  Title: ListViewCardTitle,
+}
 
 export type BookCardProps = {
   book: Book
@@ -12,13 +27,13 @@ export type BookCardProps = {
 export const BookCard: React.FC<BookCardProps> = React.memo((props) => {
   const { book, onClick, showAuthor = false } = props
   const { sortBy } = book
-  const { authorName, styles } = useBookCard(props)
+  const { authorName } = useBookCard(props)
 
   return (
-    <Card className={styles.bookCard} hoverable={true} onClick={onClick}>
-      <div className={styles.bookName}>{book.title}</div>
-      {sortBy && <div className={styles.sortBy}>Sorted by: {sortBy}</div>}
-      {showAuthor && <div className={styles.subText}>{authorName}</div>}
-    </Card>
+    <St.Card hoverable={true} onClick={onClick}>
+      <St.Title>{book.title}</St.Title>
+      {sortBy && <St.SortByText>Sorted by: {sortBy}</St.SortByText>}
+      {showAuthor && <St.CardText>{authorName}</St.CardText>}
+    </St.Card>
   )
 })
