@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { auth } from 'config/firebase'
 import { sanitizeFirebaseUser } from './sanitizeFirebaseUser'
@@ -36,22 +36,14 @@ export const useFirebaseAuth = (
 
   // rebuild the memoized user any time we get new FB user data
   useEffect(() => {
-    if (rawUser && rawUser.uid !== user?.id) {
+    if (rawUser?.uid !== user?.id) {
       setUser(sanitizeFirebaseUser(rawUser))
     }
   }, [rawUser, user])
 
-  // TODO: add login here
-  const login = () => void 0
-
-  const logout = useCallback(() => {
-    auth.signOut()
-  }, [])
-
   return {
     authInitialized,
     isAuthenticated: !!user?.id,
-    logout,
     user: user,
     userId: user?.id,
   }

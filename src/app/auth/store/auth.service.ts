@@ -12,6 +12,17 @@ export const authService = {
     })
   },
 
+  async logout(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      auth
+        .signOut()
+        .then(() => resolve())
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+
   // async register(email: string, password: string): Promise<void> {
   //   return new Promise((resolve, reject) => {
   //     auth

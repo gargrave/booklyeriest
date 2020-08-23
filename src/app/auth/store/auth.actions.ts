@@ -1,3 +1,5 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
+
 import { authService } from './auth.service'
 
 type LoginArgs = {
@@ -16,10 +18,16 @@ export const login = ({ email, password }: LoginArgs) => async (dispatch) => {
       payload: result,
     })
   } catch (err) {
-    // TODO: test this when we have a login form
     dispatch({
       type: 'auth/login/rejected',
       payload: err,
     })
   }
 }
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+  console.log('[gkh] logout')
+  const result = await authService.logout()
+  console.log({ ['[gkh]']: '[gkh]', result })
+  return result
+})

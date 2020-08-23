@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from '@reach/router'
 
-import { createAuthor } from 'app/authors/store'
+import { Author, createAuthor } from 'app/authors/store'
 import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 
@@ -18,8 +18,7 @@ export const useCreateAuthor = () => {
   }, [navigate])
 
   const handleSubmit = React.useCallback(
-    // TODO: update this to have a proper type
-    async (author) => {
+    async (author: Author) => {
       setLoading(true)
       try {
         await dispatch(

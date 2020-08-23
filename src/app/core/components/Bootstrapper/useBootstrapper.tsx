@@ -3,15 +3,11 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { Machine } from 'xstate'
 
-import { login } from 'app/auth/store/auth.actions'
 import { fetchAuthors } from 'app/authors/store/authors.actions'
 import { fetchBooks } from 'app/books/store/books.actions'
 
 import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError, logInfo } from 'utils/logger'
-
-const TEMP_EMAIL = process.env.BOOKLYER_FIREBASE_TEMP_EMAIL || ''
-const TEMP_PASS = process.env.BOOKLYER_FIREBASE_TEMP_PASS || ''
 
 enum State {
   Initializing = 'Initializing',
@@ -20,14 +16,34 @@ enum State {
   Finished = 'Finished',
 }
 
+enum StateMessage {
+  AuthSuccess = 'AuthSuccess',
+  AuthFailure = 'AuthFailure',
+  BootstrappingStart = 'BootstrappingStart',
+  BootstrappingSuccess = 'BootstrappingSuccess',
+}
+
 const bootstrapperMachine = Machine({
   id: 'bootstrapper',
   initial: State.Initializing,
   states: {
-    [State.Initializing]: { on: { AUTHENTICATED: State.BootstrappingStart } },
-    [State.BootstrappingStart]: { on: { STARTED: State.Bootstrapping } },
-    [State.Bootstrapping]: { on: { FINISHED: State.Finished } },
-    [State.Finished]: {},
+    [State.Initializing]: {
+      on: {
+        [StateMessage.AuthSuccess]: State.BootstrappingStart,
+        [StateMessage.AuthFailure]: State.Finished,
+      },
+    },
+    [State.BootstrappingStart]: {
+      on: { [StateMessage.BootstrappingStart]: State.Bootstrapping },
+    },
+    [State.Bootstrapping]: {
+      on: { [StateMessage.BootstrappingSuccess]: State.Finished },
+    },
+    [State.Finished]: {
+      on: {
+        [StateMessage.AuthSuccess]: State.BootstrappingStart,
+      },
+    },
   },
 })
 
@@ -52,7 +68,7 @@ export const useBootstrapper = () => {
         logError({ fn: 'bootstrapApp' }, err)
         throw err
       } finally {
-        sendToMachine('FINISHED')
+        sendToMachine(StateMessage.BootstrappingSuccess)
       }
     }
 
@@ -61,7 +77,7 @@ export const useBootstrapper = () => {
       msg: 'Sending all bootstrapping data requests',
     })
 
-    sendToMachine('STARTED')
+    sendToMachine(StateMessage.BootstrappingStart)
     asyncBootstrapApp()
   }, [dispatch, sendToMachine, userId])
 
@@ -71,6 +87,8 @@ export const useBootstrapper = () => {
     }
   }, [bootstrapApp, state])
 
+  // watch updates to auth state
+  // when auth is fully initialized, respond to current auth state (is user logged in?)
   React.useEffect(() => {
     if (!authInitialized) return
 
@@ -79,15 +97,13 @@ export const useBootstrapper = () => {
         fn: 'useBootstrapper',
         msg: "Successfully authenticated; commence the bootstrappin'",
       })
-      // dispatch()
-      sendToMachine('AUTHENTICATED')
+      sendToMachine(StateMessage.AuthSuccess)
     } else {
       logInfo({
         fn: 'useBootstrapper',
         msg: 'No authentication; redirecting to login page',
       })
-      // TODO: change this to use login() from the hook (once it's ready)
-      dispatch(login({ email: TEMP_EMAIL, password: TEMP_PASS }))
+      sendToMachine(StateMessage.AuthFailure)
     }
   }, [authInitialized, dispatch, isAuthenticated, sendToMachine])
 

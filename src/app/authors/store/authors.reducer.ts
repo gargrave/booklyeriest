@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { logout } from 'app/auth/store/auth.actions'
 import {
   createAuthor,
   deleteAuthor,
@@ -122,6 +123,13 @@ const authorsSlice = createSlice({
       // eslint-disable-next-line no-console
       console.error(action)
       state.requestPending = false
+    },
+
+    /**************************************************
+     * Logout; simply clear all data
+     **************************************************/
+    [logout.fulfilled.toString()]: (state: AuthorsState) => {
+      state.data = {}
     },
   },
 })

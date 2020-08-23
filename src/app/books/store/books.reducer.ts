@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { deleteAuthor, DeleteAuthorAction } from 'app/authors/store'
+import { logout } from 'app/auth/store/auth.actions'
+import {
+  AuthorsState,
+  deleteAuthor,
+  DeleteAuthorAction,
+} from 'app/authors/store'
 import { createBook, deleteBook, fetchBooks, updateBook } from './books.actions'
 import {
   BooksState,
@@ -141,6 +146,13 @@ const booksSlice = createSlice({
       })
 
       state.requestPending = false
+    },
+
+    /**************************************************
+     * Logout; simply clear all data
+     **************************************************/
+    [logout.fulfilled.toString()]: (state: AuthorsState) => {
+      state.data = {}
     },
   },
 })

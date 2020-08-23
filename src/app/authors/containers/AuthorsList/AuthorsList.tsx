@@ -2,6 +2,7 @@ import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
 
 import { AuthorBucket } from 'app/authors/components'
+import { useAuthenticatedRoute } from 'app/auth/utils/hooks/useAuthenticatedRoute'
 import { Button, Loader } from 'packages/velcrostrip'
 import { ListView, PageHeaderContainer, PageTitle } from 'styles/components'
 import { useAuthorsList } from './useAuthorsList'
@@ -22,8 +23,11 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
     loading,
   } = useAuthorsList()
   const sortedAuthorKeys = Object.keys(authors).sort()
+  const hasAuthors = sortedAuthorKeys?.length > 0
 
-  return (
+  useAuthenticatedRoute()
+
+  return hasAuthors ? (
     <St.Container>
       <St.Header>
         <St.Title>My Authors</St.Title>
@@ -45,5 +49,5 @@ export const AuthorsList: React.FC<AuthorsListProps> = React.memo(() => {
         ))
       )}
     </St.Container>
-  )
+  ) : null
 })
