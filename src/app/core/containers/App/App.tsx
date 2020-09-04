@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { Link, Redirect, Router } from '@reach/router'
 import React from 'react'
 import { Provider } from 'react-redux'
+import { RecoilRoot } from 'recoil'
 
 import { store } from 'store/store' // must be first import to ensure store is initialized
 
@@ -53,24 +54,26 @@ export const App: React.FC = () => {
       )}
 
       <St.Main>
-        <Provider store={store}>
-          <Bootstrapper>
-            <Router>
-              <Redirect from="/" noThrow={true} to="books" />
+        <RecoilRoot>
+          <Provider store={store}>
+            <Bootstrapper>
+              <Router>
+                <Redirect from="/" noThrow={true} to="books" />
 
-              <LoginPage path={'auth/login'} />
-              <LogoutPage path={'auth/logout'} />
+                <LoginPage path={'auth/login'} />
+                <LogoutPage path={'auth/logout'} />
 
-              <AuthorsList path="authors" />
-              <AuthorDetail path="authors/:authorId" />
-              <CreateAuthor path="authors/new" />
+                <AuthorsList path="authors" />
+                <AuthorDetail path="authors/:authorId" />
+                <CreateAuthor path="authors/new" />
 
-              <BooksList path="books" />
-              <BookDetail path="books/:bookId" />
-              <CreateBook path="books/new" />
-            </Router>
-          </Bootstrapper>
-        </Provider>
+                <BooksList path="books" />
+                <BookDetail path="books/:bookId" />
+                <CreateBook path="books/new" />
+              </Router>
+            </Bootstrapper>
+          </Provider>
+        </RecoilRoot>
       </St.Main>
     </div>
   )

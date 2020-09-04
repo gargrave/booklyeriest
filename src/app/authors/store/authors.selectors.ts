@@ -18,7 +18,7 @@ const sortByLastName = (a: Author, b: Author) => {
 const lowerLastName = (author: Author): string => author.lastName.toLowerCase()
 const lastInitial = (author: Author): string => author.lastName[0].toUpperCase()
 
-const groupAuthorsByLastInitial = fp.pipe(
+export const groupAuthorsByLastInitial = fp.pipe(
   fp.filter(isTruthy),
   fp.sortBy(lowerLastName),
   fp.groupBy(lastInitial),

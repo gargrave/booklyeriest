@@ -1,17 +1,17 @@
 import * as React from 'react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from '@reach/router'
+import { useRecoilValue } from 'recoil'
 
 import {
   getAuthorsGroupedByLastInitial,
-  getAuthorsRequestPending,
-} from 'app/authors/store'
+  getSetAuthorsLoading,
+} from 'app/authors/store/authors.recoil'
 
 export const useAuthorsList = () => {
   const navigate = useNavigate()
 
-  const authors = useSelector(getAuthorsGroupedByLastInitial)
-  const loading = useSelector(getAuthorsRequestPending)
+  const loading = useRecoilValue(getSetAuthorsLoading)
+  const authors = useRecoilValue(getAuthorsGroupedByLastInitial)
 
   const handleAuthorClick = React.useCallback(
     (id: string) => {

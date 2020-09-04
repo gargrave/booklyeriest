@@ -4,7 +4,8 @@ import produce from 'immer'
 import { ThunkAction } from 'store/store.types'
 import { ObjectIdMap } from './firestore.utils'
 
-const transformFirebaseData = (
+// TODO: find a better home for this, since it is no longer Thunk-specific
+export const transformFirebaseData = (
   payload: ObjectIdMap<any> = {},
 ): ObjectIdMap<any> => {
   return Object.values(payload).reduce((acc, obj) => {

@@ -1,20 +1,17 @@
 import * as React from 'react'
+import { useDispatch } from 'react-redux'
+import { useRecoilValue } from 'recoil'
 
-import { useDispatch, useSelector } from 'react-redux'
-
-import {
-  AuthorFields,
-  deleteAuthor,
-  getAuthorById,
-  updateAuthor,
-} from 'app/authors/store'
+import { AuthorFields, deleteAuthor, updateAuthor } from 'app/authors/store'
+import { getAuthorById as getRecoilAuthorById } from 'app/authors/store/authors.recoil'
 import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError } from 'utils/logger'
 import { AuthorDetailProps } from './AuthorDetail'
 
 export const useAuthorDetail = ({ authorId, navigate }: AuthorDetailProps) => {
+  // TODO: get rid of this, and replace with a Recoil helper
   const dispatch = useDispatch()
-  const author = useSelector((state) => getAuthorById(state, authorId))
+  const author = useRecoilValue(getRecoilAuthorById(authorId))
 
   const { userId } = useFirebaseAuth()
   const [loading, setLoading] = React.useState(false)

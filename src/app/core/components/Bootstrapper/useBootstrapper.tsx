@@ -3,11 +3,11 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { Machine } from 'xstate'
 
-import { fetchAuthors } from 'app/authors/store/authors.actions'
+import { fetchAuthors as fetchAuthorsRedux } from 'app/authors/store/authors.actions'
 import { fetchBooks } from 'app/books/store/books.actions'
-
 import { useFirebaseAuth } from 'utils/firebase/useFirebaseAuth'
 import { logError, logInfo } from 'utils/logger'
+import { useAuthorsApi } from '../../../authors/store/useAuthorsApi'
 
 enum State {
   Initializing = 'Initializing',
@@ -54,11 +54,13 @@ export const useBootstrapper = () => {
   const { authInitialized, isAuthenticated, userId } = useFirebaseAuth({
     waitForInitialization: true,
   })
+  const { fetchAuthors } = useAuthorsApi(userId)
 
   const bootstrapApp = React.useCallback(() => {
     const asyncBootstrapApp = async () => {
       try {
-        await dispatch(fetchAuthors({ userId }))
+        await fetchAuthors()
+        await dispatch(fetchAuthorsRedux({ userId }))
         await dispatch(fetchBooks({ userId }))
         logInfo({
           fn: 'useBootstrapper',
@@ -79,7 +81,7 @@ export const useBootstrapper = () => {
 
     sendToMachine(StateMessage.BootstrappingStart)
     asyncBootstrapApp()
-  }, [dispatch, sendToMachine, userId])
+  }, [dispatch, fetchAuthors, sendToMachine, userId])
 
   React.useEffect(() => {
     if (state.value === State.BootstrappingStart) {
