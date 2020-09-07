@@ -3,6 +3,7 @@ import { useSetRecoilState } from 'recoil'
 
 import { getSetAuthors, getSetAuthorsLoading } from './authors.recoil'
 import { authorsService } from './authors.service'
+import { Author } from './authors.types'
 
 export const useAuthorsApi = (userId: string) => {
   const setAuthors = useSetRecoilState(getSetAuthors)
@@ -21,8 +22,27 @@ export const useAuthorsApi = (userId: string) => {
     }
   }, [setAuthors, setAuthorsLoading, userId])
 
+  const [updateAuthorState, updateAuthor] = useAsyncFn(
+    async (author: Author) => {
+      setAuthorsLoading(true)
+
+      try {
+        // TODO: replace updated author in store
+        const result = await authorsService.updateAuthor(userId, author)
+        // setAuthors(result)
+      } catch (err) {
+        //  TODO: log error
+      } finally {
+        setAuthorsLoading(false)
+      }
+    },
+    [setAuthors, setAuthorsLoading, userId],
+  )
+
   return {
     fetchAuthors,
     fetchAuthorsState,
+    updateAuthor,
+    updateAuthorState,
   }
 }

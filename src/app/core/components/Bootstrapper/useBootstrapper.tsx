@@ -60,6 +60,7 @@ export const useBootstrapper = () => {
     const asyncBootstrapApp = async () => {
       try {
         await fetchAuthors()
+        // TODO: remove this call when migration is complete
         await dispatch(fetchAuthorsRedux({ userId }))
         await dispatch(fetchBooks({ userId }))
         logInfo({

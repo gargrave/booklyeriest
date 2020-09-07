@@ -86,6 +86,7 @@ const authorsSlice = createSlice({
       state: AuthorsState,
       action: MutateAuthorAction,
     ) => {
+      //  TODO: use this logic in recoil
       const author = Object.values(action.payload)[0]
       state.data[author.id] = author
       state.requestPending = false
