@@ -92,7 +92,7 @@
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "react-app-polyfill": "^1.0.6",
-    "react-dev-utils": "^10.2.1",
+    "react-dev-utils": "^11.0.4",
     "react-docgen-typescript": "^1.16.5",
     "react-styleguidist": "^11.0.6",
     "resolve": "1.17.0",
